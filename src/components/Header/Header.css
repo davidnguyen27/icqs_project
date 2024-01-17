@@ -1,0 +1,59 @@
+:root {
+  --yellow-brand: #ffc814;
+  --dark-black: #231f20;
+  --grey-color: #ccc;
+  --white-color: #fff;
+}
+
+.app-bar {
+  background-color: var(--white-color) !important;
+  color: var(--dark-black) !important;
+  padding: 10px 0 !important;
+  box-shadow: none !important;
+}
+
+.brand-icon {
+  border-radius: 50%;
+  padding: 15px;
+  margin-right: 5px;
+  background-color: var(--yellow-brand);
+  color: var(--dark-black);
+}
+
+.nav-icons {
+  font-size: 30px !important;
+}
+
+.search-box {
+  position: relative;
+  margin: 0 120px;
+}
+
+.search-input {
+  border: 1px solid var(--dark-black);
+  padding: 8px 30px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-icon {
+  background-color: var(--dark-black);
+  color: var(--white-color);
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  /* border-radius: 5px; */
+  border: none;
+}
+
+.nav-button {
+  font-size: 1.2rem !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+}
+
+hr {
+  margin-top: 8px;
+  border: 1px solid #e0e0e0;
+}
