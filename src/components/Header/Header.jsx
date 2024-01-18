@@ -10,12 +10,14 @@ import { AppBar, Box, Button, Container, Stack, Toolbar, Typography, useMediaQue
 import { useTheme } from '@emotion/react';
 import { useState } from 'react';
 import LoginModal from '../../Auth/LoginModal';
+import { useSelector } from 'react-redux';
 
 const navItems = [
   { icon: <FeedIcon className="nav-icons" />, name: 'News' },
   { icon: <AccountBoxIcon className="nav-icons" />, name: 'About' },
   { icon: <ContactsIcon className="nav-icons" />, name: 'Contact' },
   { icon: <LoginIcon className="nav-icons" />, name: 'Login' },
+  
 ];
 
 const navFilter = [
@@ -32,7 +34,8 @@ const Header = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
-
+  const userServer = useSelector((state) => state.authReducer.authData)
+  const check = userServer?.data.user.role === "ADMIN" ? true : false
   return (
     <div>
       <AppBar position="static" className="app-bar">
@@ -75,6 +78,7 @@ const Header = () => {
                 {item} <ArrowDropDownIcon />
               </Button>
             ))}
+            
           </Stack>
         </Container>
       </AppBar>
