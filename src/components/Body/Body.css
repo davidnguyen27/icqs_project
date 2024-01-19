@@ -1,0 +1,18 @@
+.btn-view-more {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 2px solid #000 !important;
+  display: block !important;
+  margin: 20px auto !important;
+}
+
+.btn-view-more:hover {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.img-style {
+  width: 100%;
+  height: auto;
+  display: block;
+}

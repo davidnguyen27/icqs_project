@@ -6,6 +6,8 @@ import ContactsIcon from '@mui/icons-material/Contacts';
 import LoginIcon from '@mui/icons-material/Login';
 import HomeIcon from '@mui/icons-material/Home';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import MenuIcon from '@mui/icons-material/Menu';
+import IconButton from '@mui/material/IconButton';
 import { AppBar, Box, Button, Container, Stack, Toolbar, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { useState } from 'react';
@@ -17,7 +19,6 @@ const navItems = [
   { icon: <AccountBoxIcon className="nav-icons" />, name: 'About' },
   { icon: <ContactsIcon className="nav-icons" />, name: 'Contact' },
   { icon: <LoginIcon className="nav-icons" />, name: 'Login' },
-  
 ];
 
 const navFilter = [
@@ -34,16 +35,28 @@ const Header = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
-  const userServer = useSelector((state) => state.authReducer.authData)
-  const check = userServer?.data.user.role === "ADMIN" ? true : false
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const userServer = useSelector((state) => state.authReducer.authData);
+  const check = userServer?.data.user.role === 'ADMIN' ? true : false;
+
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
   return (
     <div>
       <AppBar position="static" className="app-bar">
         <Container maxWidth="lg">
           <Toolbar style={{ padding: 0 }}>
-            <Box display="flex" alignItems="center">
+            {isMobile && (
+              <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerToggle}>
+                <MenuIcon />
+              </IconButton>
+            )}
+            <Box display="flex" alignItems="center" flexGrow={1}>
               <HomeIcon className="brand-icon" />
-              <Typography variant="h4" component="div" noWrap fontWeight="700">
+              <Typography variant={isMobile ? 'h5' : 'h4'} component="div" noWrap fontWeight="700">
                 MY HOUSE
               </Typography>
             </Box>
@@ -51,19 +64,21 @@ const Header = () => {
               <Box display="flex" flexGrow={1} alignItems="center" className="search-box">
                 <div style={{ display: 'flex' }}>
                   <input type="text" placeholder="Enter keyword..." className="search-input" required />
-                  <Button className="search-icon">
-                    <SearchIcon style={{ position: 'absolute', top: '25px', right: '100%' }} />
-                  </Button>
+
+                  <SearchIcon className="search-icon" />
                 </div>
               </Box>
             )}
-            <Stack direction="row" spacing={2}>
+            <Stack direction={isMobile ? 'column' : 'row'} spacing={2}>
               {navItems.map((item, index) => (
                 <Button
                   key={index}
                   className="nav-button"
                   color="inherit"
-                  onClick={item.name === 'Login' ? () => setOpenLoginModal(true) : null}
+                  onClick={() => {
+                    setOpenLoginModal(item.name === 'Login');
+                    setDrawerOpen(false);
+                  }}
                 >
                   {item.icon}
                   {item.name}
@@ -78,7 +93,6 @@ const Header = () => {
                 {item} <ArrowDropDownIcon />
               </Button>
             ))}
-            
           </Stack>
         </Container>
       </AppBar>

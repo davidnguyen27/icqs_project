@@ -1,12 +1,7 @@
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, Typography, Button } from '@mui/material';
+import './Body.css';
 
 const urlImg = [
-  {
-    url: 'https://images.unsplash.com/photo-1696607588153-6876c0cfe099?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1578979879663-4ba6a968a50a?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
   {
     url: 'https://plus.unsplash.com/premium_photo-1668485966810-bcaa10f47781?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
@@ -43,14 +38,11 @@ const BodyPart1 = () => {
         <Grid container spacing={2} justifyContent="center">
           {urlImg.map((image, index) => (
             <Grid item xs={6} sm={4} md={3} lg={4} key={index}>
-              <img
-                src={image.url}
-                alt={`Image ${index}`}
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
+              <img src={image.url} alt={`Image ${index}`} className="img-style" />
             </Grid>
           ))}
         </Grid>
+        <Button className="btn-view-more">View more</Button>
       </Container>
     </Container>
   );

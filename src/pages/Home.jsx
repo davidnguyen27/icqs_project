@@ -2,6 +2,7 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import Header from '../components/Header/Header';
 import Slider from '../components/Slider/Slider';
 import BodyPart1 from '../components/Body/BodyPart1';
+import BodyPart2 from '../components/Body/BodyPart2';
 
 const theme = createTheme({
   breakpoints: {
@@ -21,6 +22,7 @@ const Home = () => {
       <Header />
       <Slider />
       <BodyPart1 />
+      <BodyPart2 />
     </ThemeProvider>
   );
 };
