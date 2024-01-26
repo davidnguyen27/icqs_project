@@ -32,7 +32,7 @@ const Body2 = () => {
         </div>
         <div className="Body2-column">
           <span className="icon-container">
-            <img src="https://noithatantin.com/wp-content/uploads/2023/01/icon-thiet-ke-noi-that-400x400.png" alt="Icon" />
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRNjFsVWQH-iUxKKG5h91fV2ijESSILw7ayMosBW3GhipgJ5DFgMxYD4g9hqXq5_1PNn4&usqp=CAU" alt="Icon" />
           </span>
           <h1>Tìm đơn vị thi công uy tín</h1>
           <p><strong>Bạn muốn cải tạo nhà</strong> cần tìm đội ngũ tay nghề cao cam kết tiến độ và chất lượng</p>
@@ -42,7 +42,7 @@ const Body2 = () => {
         </div>
         <div className="Body2-column">
           <span className="icon-container">
-            <img src="https://banner2.cleanpng.com/20180613/bux/kisspng-computer-icons-counseling-psychology-business-cons-globalization-5b215a402ee8d6.8483161115289124481922.jpg" alt="Icon" />
+            <img src="https://naikehouse.com/wp-content/uploads/2021/10/Artboard-1-20.jpg" alt="Icon" />
           </span>
           <h1>Tư vấn 1:1 cùng KTS</h1>
           <p><strong>Bạn đang lên ý tưởng</strong> cần định hình phong cách và nội thất phù hợp</p>
