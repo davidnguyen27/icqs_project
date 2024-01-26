@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" href="css/register.css">
+    <!-- <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+</head>
+
+<body>
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+                <h3>Welcome</h3>
+                <p>You are 30 seconds away from earning your own money!</p>
+                <input type="submit" name="" value="Login" /><br />
+            </div>
+            <div class="col-md-9 register-right">
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                            aria-controls="home" aria-selected="true">Employee</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                            aria-controls="profile" aria-selected="false">Hirer</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Register for user</h3>
+
+                        <form action="/register" method="post" onsubmit="return validateForm();">
+                            <div class="row register-form"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" class="form-control"
+                                        placeholder="Your Email *" value="" />
+                                    <span id="emailError" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" class="form-control"
+                                        placeholder="Password *" value="" />
+                                    <span id="passwordError" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="confirmPassword" id="confirmPassword"
+                                        class="form-control" placeholder="Confirm Password *" value="" />
+                                    <span id="confirmPasswordError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" class="form-control"
+                                        placeholder="User Name *" value="" />
+                                    <span id="usernameError" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="phone" minlength="10" maxlength="10" id="phone"
+                                        name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
+                                    <span id="phoneError" class="text-danger"></span>
+                                </div>
+
+                                <input type="submit" class="btnRegister" value="Register" />
+                            </div>
+                    </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <script>
+        function validateForm() {
+            // Lấy giá trị từ các ô input
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var username = document.getElementById('username').value;
+            var phone = document.getElementById('phone').value;
+
+            // Kiểm tra và hiển thị thông báo lỗi
+            if (email == "") {
+                document.getElementById('emailError').innerText = 'Email is required'; return false;
+            } else {
+                document.getElementById('emailError').innerText = ''; return true;
+            }
+
+            if (password == "") {
+                document.getElementById('passwordError').innerText = 'Password is required'; return false;
+            } else {
+                document.getElementById('passwordError').innerText = ''; return true;
+            }
+
+            if (confirmPassword == "") {
+                document.getElementById('confirmPasswordError').innerText = 'Confirm Password is required'; return false;
+            } else if (password != confirmPassword) {
+                document.getElementById('confirmPasswordError').innerText = 'Passwords do not match'; return false;
+            } else {
+                document.getElementById('confirmPasswordError').innerText = ''; return true;
+            }
+
+            if (username == "") {
+                document.getElementById('usernameError').innerText = 'Username is required'; return false;
+            } else {
+                document.getElementById('usernameError').innerText = '';
+                return true;
+            }
+
+            if (phone == "") {
+                document.getElementById('phoneError').innerText = 'Phone is required';
+                return true;
+            } else {
+                document.getElementById('phoneError').innerText = '';
+            }
+            return true;
+        }
+    </script>
+</body>
+
+</html>
