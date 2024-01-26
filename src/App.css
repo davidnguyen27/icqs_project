@@ -1,46 +1,16 @@
-.Body2-row {
-  display: flex;
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.Body2-column {
-  border-radius: 10%;
-  border: 1px solid black;
-  margin: 40px;
-  padding: 20px;
-  position: relative;
-  width: 550px;
-  height: 550px;
-   
+/* Styling for specific components */
+.header {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
 }
 
-.Body2-column p {
-  font-size: 27px;
-  width: 440px;
-  height: 170px
+.main-content {
+  margin: 20px;
 }
-
-.icon-container {
-  display: inline-block;
-  position: relative;
-  margin-right: 10px; 
-}
-
-
-
-.icon-container img {
-    width: 150px;
-    height: auto;
-   
-    object-fit: cover;
-}
-.boostest{
- 
-  background-color: yellow;
-  font-size: 30px;
-  color: black;
-  border: 1px;
-  border-radius: 10px;
-  margin-left: 123px;
-  margin-bottom: 70px;
-}
-
