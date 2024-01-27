@@ -60,7 +60,7 @@ export default function footer() {
       </div>
       {/* Column4*/}
    <div className='col'>
-   <img src="https://hungvietme.vn/wp-content/uploads/2021/06/he-thong-dien-nhe.jpeg" width="300px"></img>
+   <img src="https://hungvietme.vn/wp-content/uploads/2021/06/he-thong-dien-nhe.jpeg" width="300px" alt='Value'></img>
    <p>
       <FontAwesomeIcon icon={faFacebook} size="lg" shake width="30px"/>
       <FontAwesomeIcon icon={faTiktok} size="lg" shake width="30px"/>

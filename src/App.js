@@ -1,10 +1,14 @@
 import './App.css';
+import FbPage from './Components/FbPage';
 import Footer from './Components/Footer';
 
 function App() {
   return (
-   
-    <Footer/>
+    
+
+    <FbPage></FbPage>
+
+    
   
   );
 }
