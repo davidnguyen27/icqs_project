@@ -1,0 +1,36 @@
+.black-detailproperty {
+  color: black;
+}
+.blue-detailproperty {
+  color: rgb(29, 7, 221);
+}
+.image-detailproperty {
+  width: 100%;
+}
+.bold {
+  font-weight: bold;
+}
+.fs-20 {
+  font-size: 20px;
+}
+
+.fs-16 {
+  font-size: 16px;
+}
+.inline {
+  display: flex;
+}
+.marginT-30 {
+  margin-top: 30px;
+}
+.image-related {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.2s;
+  border-radius: 10px;
+}
+
+.image-related:hover {
+  transform: scale(1.08);
+  cursor: pointer;
+}

@@ -14,7 +14,7 @@ const modalStyle = {
   p: 4,
 };
 
-const LoginModal = ({ open, handleClose }) => {
+const LoginModal = ({ open, handleClose, setOpenLoginModal }) => {
   const [isAuth, setIsAuth] = useState(false);
   // const check = () => {
   //   isAuth ? setIsAuth(true) : setIsAuth(false);
@@ -29,12 +29,15 @@ const LoginModal = ({ open, handleClose }) => {
   };
 
   const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(userLogin(user));
   };
-
   const userServer = useSelector((state) => state.authReducer.authData);
+  // {
+  //   userServer ? setOpenLoginModal(false) : setOpenLoginModal(true);
+  // }
 
   return (
     <div>
@@ -59,6 +62,7 @@ const LoginModal = ({ open, handleClose }) => {
               fullWidth
               margin="normal"
             />
+            {!userServer && <div style={{ fontSize: '12px', color: 'red' }}>Người dùng không tồn tại</div>}
             {isAuth && <TextField label="Re-enter password" type="password" fullWidth margin="normal" />}
 
             {!isAuth && <Button onClick={() => setIsAuth(true)}>Sign Up</Button>}

@@ -1,0 +1,8 @@
+.search-text {
+  flex: 1;
+  padding: 10px;
+  font-weight: 700 !important;
+  font-size: 15px;
+  border: none;
+  outline: none;
+}

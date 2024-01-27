@@ -8,6 +8,9 @@ const authReducer = (state = { authData: null, loading: false, error: false }, a
       return { ...state, authData: payload.data, loading: false };
     case 'AUTH_FAIL':
       return { ...state, loading: false, error: true };
+    case 'AUTH_LOGOUT':
+      localStorage.removeItem('user');
+      return { ...state, authData: null, loading: false, error: false };
     default:
       return { ...state };
   }

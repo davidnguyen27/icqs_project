@@ -1,0 +1,10 @@
+.container-notfound {
+  text-align: center;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.search-icon-notfound {
+  font-size: 150px;
+  color: orange;
+}

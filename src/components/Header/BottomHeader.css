@@ -1,0 +1,33 @@
+/* Thêm độ trễ cho hiệu ứng mở rộng menu */
+.menu-enter {
+  opacity: 0.8; /* Độ trong suốt ban đầu */
+  transform: scale(0.95); /* Thu nhỏ menu ban đầu */
+}
+
+.menu-enter-active {
+  opacity: 1; /* Độ trong suốt sau khi hiệu ứng hoàn thành */
+  transform: scale(1); /* Kích thước menu bởi 1 để phóng to hoàn toàn */
+  transition: opacity 300ms, transform 300ms;
+}
+
+.menu-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.menu-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Điều chỉnh giao diện MenuItem */
+.MuiMenuItem-root {
+  font-size: 16px; /* Điều chỉnh kích thước font chữ */
+  padding: 10px 20px; /* Điều chỉnh khoảng cách giữa các MenuItem */
+}
+
+/* Tô màu khi hover trên MenuItem */
+.MuiMenuItem-root:hover {
+  background-color: #f0f0f0;
+}

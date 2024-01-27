@@ -12,13 +12,36 @@
   box-shadow: none !important;
 }
 
+/* Header.css */
+.app-bar.scrolled {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1100; /* Ensure it's above other content */
+}
+
+.sub-nav {
+  padding: 0 !important;
+}
+
+.brand-box {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
 .brand-icon {
   border-radius: 50%;
   padding: 8px;
   margin-right: 5px;
   background-color: var(--yellow-brand);
   color: var(--dark-black);
-  font-size: 4rem !important;
+  font-size: 3.5rem !important;
+}
+
+.brand-text {
+  font-weight: 700 !important;
 }
 
 .nav-icons {
@@ -26,13 +49,16 @@
 }
 
 .search-box {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
   position: relative;
   margin: 0 120px;
 }
 
 .search-input {
   border: 1px solid var(--dark-black);
-  padding: 8px 30px;
+  padding: 8px 20px;
   border-radius: 5px;
   font-size: 16px;
 }
@@ -42,18 +68,38 @@
   position: absolute;
   background-color: var(--dark-black);
   color: var(--white-color);
-  right: 20px;
+  right: 0;
   padding: 5px;
   border-radius: 5px;
 }
 
 .nav-button {
-  font-size: 1.2rem !important;
+  font-size: 1rem !important;
   font-weight: 400 !important;
   text-transform: none !important;
 }
 
+.toggle-menu {
+  display: none !important;
+}
+
 hr {
-  margin-top: 8px;
+  margin-top: 10px;
   border: 1px solid #e0e0e0;
+}
+
+/* Header.css */
+.brand-fixed {
+  position: fixed;
+  top: 0;
+  z-index: 1100; /* Ensure it's above other content */
+}
+
+.bottom-fixed {
+  position: fixed;
+  top: 64px; /* Height of the top AppBar, adjust as needed */
+  z-index: 1100;
+  width: 100%; /* Ensure it takes full width */
+  background-color: white; /* Or any background color you prefer */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: adds shadow for better visibility */
 }

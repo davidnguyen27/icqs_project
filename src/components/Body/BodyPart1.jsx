@@ -1,5 +1,7 @@
 import { Container, Grid, Typography, Button } from '@mui/material';
 import './Body.css';
+import { useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const urlImg = [
   {
@@ -22,6 +24,7 @@ const urlImg = [
   },
 ];
 const BodyPart1 = () => {
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <Container maxWidth="xl" style={{ padding: '20px 0' }}>
       <Typography
@@ -37,12 +40,15 @@ const BodyPart1 = () => {
       <Container maxWidth="xl">
         <Grid container spacing={2} justifyContent="center">
           {urlImg.map((image, index) => (
-            <Grid item xs={6} sm={4} md={3} lg={4} key={index}>
+            <Grid item xs={6} sm={4} md={4} lg={4} key={index}>
               <img src={image.url} alt={`Image ${index}`} className="img-style" />
             </Grid>
           ))}
         </Grid>
-        <Button className="btn-view-more">View more</Button>
+        {isLoading && <span>abc</span>}
+        <Button className="btn-view-more" onClick={(e) => setIsLoading(true)}>
+          {isLoading ? <CircularProgress /> : 'View more'}
+        </Button>
       </Container>
     </Container>
   );

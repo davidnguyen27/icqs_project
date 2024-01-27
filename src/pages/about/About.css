@@ -1,0 +1,91 @@
+.image-about {
+  width: 100%;
+}
+.container-about {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.desctiption-about {
+  line-height: 2.5;
+}
+
+.text-highlight {
+  font-weight: bold;
+}
+
+.body-part3 {
+  margin-top: 50px;
+  background-color: #ffc914;
+  min-height: 500px;
+  width: 100%;
+  text-align: center;
+  padding: 30px;
+}
+
+.body-part3 .title {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+}
+.item {
+  border-radius: 10px;
+}
+.title-box {
+  margin-top: 30px;
+}
+
+.title-container {
+  min-height: 200px;
+  background-color: #f7f7f7;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.title-text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.description-text {
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+.logo {
+  margin-top: 30px;
+  font-size: 30px;
+}
+
+.body-part2-container {
+  margin-top: 30px;
+  margin-bottom: 100px;
+}
+.image-box:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.body-part2-container .image-name {
+  width: 100%;
+  margin-top: 400px;
+}
+
+.description-bodypart2 {
+  margin-bottom: 60px;
+  color: white;
+  font-weight: bold;
+  z-index: 1;
+  line-height: 1.3;
+}
+
+.image-box::before {
+  content: '';
+  background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ (ví dụ: màu đen với độ mờ 50%) */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border-radius: 10px;
+}
