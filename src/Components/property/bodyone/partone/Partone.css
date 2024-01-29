@@ -1,0 +1,7 @@
+
+.full-screen-image {
+    width: 50%;
+    height: 50%;
+    object-fit: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ không gian */  
+  }
+  

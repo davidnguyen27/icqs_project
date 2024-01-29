@@ -1,15 +1,12 @@
-import './App.css';
-import FbPage from './Components/FbPage';
-import Footer from './Components/Footer';
-
+import "./App.css";
+import DetailProperty from "./Components/property/DetailProperty";
+import Footer from "./Components/Footer";
 function App() {
   return (
-    
-
-    <FbPage></FbPage>
-
-    
-  
+    <div className="App">
+    <DetailProperty/>
+    <Footer/>
+    </div>
   );
 }
 

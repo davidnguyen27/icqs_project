@@ -1,0 +1,41 @@
+/* EmailForm.css */
+
+.emailForm {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .emailForm input,
+  .emailForm textarea,
+  .emailForm button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .emailForm textarea {
+    resize: vertical;
+  }
+  
+  .emailForm button {
+    background-color: yellow;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  .emailForm button:hover {
+    background-color: yellowgreen;
+  }
+  
+  
+  

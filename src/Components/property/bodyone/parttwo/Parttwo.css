@@ -1,0 +1,40 @@
+
+
+.product-rating-overview__rating_score {
+    font-size: 1.875rem;
+}
+.prodct-rating-overview__score-wrapper {
+    color: #d0011b;
+}
+.customer_rate{
+    margin-top: 30px;
+    text-align: left;
+}
+
+.customer_infor{
+    display: flex;
+    margin-top: 20px;
+   
+}
+.customer_information{
+    margin-left: 20px;
+    
+}
+.product-rating__time{
+    color: rgba(0,0,0,.54);
+    font-size: .75rem;
+    margin-bottom: 0.9375rem;
+    margin-top: 0.25rem;
+}
+.feedback{
+    position: relative;
+    box-sizing: border-box;
+    margin: 15px 0px;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.87);
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+
