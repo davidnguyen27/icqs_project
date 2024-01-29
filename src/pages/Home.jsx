@@ -4,6 +4,7 @@ import Slider from '../components/Slider/Slider';
 import BodyPart1 from '../components/Body/BodyPart1';
 import BodyPart2 from '../components/Body/BodyPart2';
 import BodyPart3 from '../components/Body/BodyPart3';
+import Footer from '../components/Footer/Footer';
 
 const theme = createTheme({
   breakpoints: {
@@ -27,6 +28,7 @@ const Home = () => {
       <Container>
         <BodyPart3 />
       </Container>
+      <Footer />
     </ThemeProvider>
   );
 };

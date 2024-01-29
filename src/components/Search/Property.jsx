@@ -6,6 +6,8 @@ import {
   CardMedia,
   Container,
   Grid,
+  Pagination,
+  Stack,
   Typography,
 } from '@mui/material';
 import React from 'react';
@@ -22,16 +24,25 @@ const Property = ({ properties }) => {
       <Typography variant="h4">Những thiết kế nội thất bạn tìm kiếm</Typography>
       <Box sx={{ flexGrow: 1 }} style={{ marginTop: '30px' }}>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {properties?.data?.property.map((item) => (
+          {properties?.data?.property.rows.map((item) => (
             <Grid item xs={2} sm={4} md={4} key={item.id}>
               <Card sx={{ maxWidth: 345 }} onClick={() => handleClick(item.id)}>
                 <CardActionArea>
                   <CardMedia component="img" height="140" image={item.images} />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      style={{ maxHeight: '30px', overflow: 'hidden' }}
+                    >
                       {item.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      style={{ maxHeight: '20px', overflow: 'hidden' }}
+                    >
                       {item.description}
                     </Typography>
                   </CardContent>

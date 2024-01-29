@@ -134,6 +134,9 @@ const Header = () => {
                         {
                           item.name === 'About' && navigate('/about');
                         }
+                        {
+                          item.name === 'Blogs' && navigate('/blogs');
+                        }
                       }}
                     >
                       {item.icon}
