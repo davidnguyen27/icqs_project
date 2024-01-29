@@ -32,7 +32,11 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+      status: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

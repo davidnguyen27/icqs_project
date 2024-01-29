@@ -1,5 +1,4 @@
 
-import { createHash } from 'node:crypto'
 /**
  * Returns an MD5 hash for the given `content`.
  *
@@ -7,9 +6,7 @@ import { createHash } from 'node:crypto'
  *
  * @returns {String}
  */
-function md5(content) {  
-  return createHash('md5').update(content).digest('hex')
-}
+
 function isPhoneNumber(str) {
     // check phone number has constain spaces, character, special character or not 
     if (!/^\d+$/.test(str)) {
@@ -39,6 +36,30 @@ function isEmailValid(email) {
     return commonEmailDomains.includes(emailDomain);
   }
 
-module.exports = {
-    isPhoneNumber, isEmailValid, md5
+  function isValidPassword(password) {
+    // Kiểm tra độ dài tối thiểu là 8 ký tự
+    if (password.length < 8) {
+        return false;
+    }
+
+    
+    // Kiểm tra xem có chứa ít nhất một chữ cái in thường và một chữ cái in hoa
+    const hasLowercase = /[a-z]/.test(password);
+    const hasUppercase = /[A-Z]/.test(password);
+
+    // Kiểm tra xem có chứa ít nhất một chữ số
+    const hasDigit = /\d/.test(password);
+
+    // Kiểm tra xem có chứa khoảng trắng hay không
+    const hasWhitespace = /\s/.test(password);
+
+    return hasLowercase && hasUppercase && hasDigit && !hasWhitespace;
 }
+
+
+
+
+
+module.exports = {
+    isPhoneNumber, isEmailValid, isValidPassword
+  }

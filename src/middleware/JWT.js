@@ -1,31 +1,75 @@
 const jwt = require('jsonwebtoken');
+// { expiresIn: '30s' }
+const createJWT = (payload) => {
 
-const authenticateRole = (requiredRole) => {
-  return (req, res, next) => {
-    // Lấy token từ header
-    const token = req.header('Authorization');
-
-    if (!token) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-
-    try {
-      // Xác thực token và lấy thông tin payload
-      const decoded = jwt.verify(token, 'your-secret-key');
-
-      // Kiểm tra role
-      if (!decoded.role || !requiredRole.includes(decoded.role)) {
-        return res.status(403).json({ message: 'Forbidden' });
-      }
-
-      // Lưu thông tin user vào req để sử dụng ở các middleware hoặc route khác
-      req.user = decoded;
-
-      next();
-    } catch (error) {
-      return res.status(401).json({ message: 'Invalid token' });
-    }
-  };
+  let token = null;
+  try {
+    token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '604800s' });
+    console.log(token);
+  } catch (err) {
+    console.log(err);
+  }
+  return token;
 };
 
-module.exports = authenticateRole;
+const authenToken = (req, res, next) => {
+  const authorizationHeader = req.rawHeaders[3];
+
+  if (!authorizationHeader) {
+    return res.sendStatus(401);
+  }
+  const token = authorizationHeader.split(' ')[1];
+
+  if (!token) {
+    return res.sendStatus(401);
+  }
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+   
+    if (err) {
+      return res.sendStatus(403); // Forbidden
+    }
+    // If token is valid, you might want to attach the user information to the request object
+    req.user = data;
+    next();
+  });
+}
+// const verifyToken = (req, res, next) => {
+//   const token = req.headers?.authorization;
+//   if (!token){
+//      console.log(token);
+//     return res.status(403).json({ success: false, message: "Creds not provide" });
+//   }
+
+//   const rawToken = token?.split(" ")[1];
+//   jwt.verify(rawToken, process.env.ACCESS_TOKEN_SECRET, (error, decode) => {
+//     if (error)
+//       return res.status(401).json({ success: false, message: "Creds invalid" });
+//     req.user = decode;
+//     next();
+//   });
+// };
+
+const isAdmin = (req, res, next) => {
+  const { role } = req.user;
+  console.log("aa")
+  if (role !== "ADMIN") {
+    return res
+      .status(401)
+      .json({ success: false, message: "You are not ADMIN" });
+  }
+  next();
+};
+
+const isStaff = (req, res, next) => {
+  const { role } = req.user;
+  if (role === "USER") {
+    return res
+      .status(401)
+      .json({ success: false, message: "You do not have access" });
+  }
+  next();
+};
+
+module.exports = {
+  createJWT, isAdmin, isStaff, authenToken
+};

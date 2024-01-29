@@ -20,7 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.INTEGER,
     role: {type:DataTypes.ENUM,
     values:['ADMIN', 'STAFF', 'USER']
-    }
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true, // Nếu muốn giá trị mặc định là true khi tạo mới
+    },
   }, {
     sequelize,
     modelName: 'Account',

@@ -18,9 +18,14 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.STRING,
     image: DataTypes.STRING,
     content: DataTypes.STRING,
-    role: {type:DataTypes.ENUM,
-      values:['ADMIN', 'STAFF']
-      }
+    role: {
+      type: DataTypes.ENUM,
+      values: ['ADMIN', 'STAFF']
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true, // Nếu muốn giá trị mặc định là true khi tạo mới
+    },
   }, {
     sequelize,
     modelName: 'Blogs',
