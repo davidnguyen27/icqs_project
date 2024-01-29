@@ -1,26 +1,44 @@
-import Header from '../components/Header/Header';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getSearchProperties } from '../redux/actions/propertyAction';
-import { Container } from '@mui/material';
-import Property from '../components/Search/Property';
-import NotFoundSearch from '../components/Search/NotFoundSearch';
-import './Search.css';
+import Header from "../components/Header/Header";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { getSearchProperties } from "../redux/actions/propertyAction";
+import { Container, Pagination, Stack } from "@mui/material";
+import Property from "../components/Search/Property";
+import NotFoundSearch from "../components/Search/NotFoundSearch";
+import "./Search.css";
+import Footer from "../components/Footer/Footer";
 const Search = () => {
   const search = useParams();
+  const [page, setPage] = useState();
   const dispatch = useDispatch();
-  const properties = useSelector((state) => state?.propertyReducer.propertyData);
+  const properties = useSelector(
+    (state) => state?.propertyReducer.propertyData
+  );
 
   useEffect(() => {
-    dispatch(getSearchProperties(search.param));
-  }, [search]);
-
+    dispatch(getSearchProperties(search.param, page, 6));
+  }, [search, page]);
+  console.log(properties);
   return (
     <>
       <Header />
       <Container>
-        {properties?.data?.property.length > 0 ? <Property properties={properties} /> : <NotFoundSearch />}
+        {properties?.data?.property.rows.length > 0 ? (
+          <Property properties={properties} search={search} />
+        ) : (
+          <NotFoundSearch />
+        )}
+        {properties?.data?.property.rows.length > 0 && (
+          <Stack spacing={2} style={{ marginTop: "30px", marginLeft: "30%" }}>
+            <Pagination
+              count={Math.ceil(properties?.data?.property.count / 6)}
+              variant="outlined"
+              color="secondary"
+              onClick={(e) => setPage(parseFloat(e.target.innerText) + 1)}
+            />
+          </Stack>
+        )}
       </Container>
     </>
   );

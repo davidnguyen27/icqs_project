@@ -1,0 +1,30 @@
+.container-quotation{
+    margin-top: 30px;
+}
+
+.form-step1{width: 100%;}
+
+.form-step1 input {
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid black;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.form-step1 .button-step1{
+    border: none;
+    outline: none;
+    background-color: #ffc914;
+}
+
+.form-step1 .button-step1:hover {
+    background-color: transparent;
+    border: 1px solid black;
+    color: #ffc914;
+    font-weight: bold;
+    cursor: pointer;
+}

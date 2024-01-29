@@ -1,0 +1,23 @@
+.container-blogdetail{
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.lineheight {
+    line-height: 30px;
+}
+
+.intro-blogdetail{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.text-body-blogdetail{
+    margin-bottom: 30px;
+}
+
+.image-body-blogdetail{
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}

@@ -6,6 +6,7 @@
 }
 .image-detailproperty {
   width: 100%;
+  border-radius: 10px;
 }
 .bold {
   font-weight: bold;
@@ -23,6 +24,12 @@
 .marginT-30 {
   margin-top: 30px;
 }
+
+.marginB-150 {
+  margin-bottom: 150px;
+}
+
+
 .image-related {
   width: 100%;
   object-fit: cover;
@@ -32,5 +39,25 @@
 
 .image-related:hover {
   transform: scale(1.08);
+  cursor: pointer;
+}
+
+.feedback-container{
+  margin-top: 20px;
+}
+
+.input-comment-feedback {display: flex; position: relative;}
+
+.input-comment-feedback input{
+  height: 50px;
+  width: 100%;
+  padding: 15px;
+  font-size: 14px;
+}
+
+.input-comment-feedback .icon-comment{
+  position: absolute;
+  right: 20px;
+  top: 27%;
   cursor: pointer;
 }
