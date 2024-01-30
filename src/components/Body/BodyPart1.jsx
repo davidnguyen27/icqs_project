@@ -48,6 +48,7 @@ const BodyPart1 = () => {
         {isLoading && <span>abc</span>}
         <Button className="btn-view-more" onClick={(e) => setIsLoading(true)}>
           {isLoading ? <CircularProgress /> : 'View more'}
+          Container{' '}
         </Button>
       </Container>
     </Container>
