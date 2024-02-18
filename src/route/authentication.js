@@ -2,19 +2,18 @@
 
 const express = require('express')
 const router = express.Router()
-const accountController = require('../controllers/accountController');
-const authenticateRole = require('../middleware/JWT')
-const blogController = require('../controllers/blogController');
-    router.get('/', accountController.getHomePage)
+const authController = require('../controllers/authController');
+const { authenToken, logout} = require('../middleware/JWT');;
+    router.get('/', authController.getHomePage)
     // Login
-    router.post('/login', accountController.login,
-       
+    router.post('/login', authController.login,
     )   
     //Register for user
-    router.post('/registerPage', accountController.getRegisterPage)
-    router.post('/register', accountController.Register)
+    router.post('/registerPage', authController.getRegisterPage)
+    router.post('/register', authController.Register)
     //Admin create new staff account
-    router.post('/createStaff', accountController.createStaff)
+    router.post('/createStaff', authController.createStaff)
+    router.get('/logout', logout);
     module.exports = router
 
 

@@ -8,8 +8,6 @@ const jwt = require('jsonwebtoken');
 const { createJWT, verifyToken } = require('../middleware/JWT')
 
 
-const argon2 = require('argon2');
-
 let getHomePage = async (req, res) => {
     return res.render('index.ejs');
 }
@@ -54,32 +52,37 @@ const Register = async (req, res) => {
 }
 //login function
 const login = async (req, res) => {
-
-    // const dataUser = req.body;
-    const { email, password} = req.body;
+    const { email, password } = req.body;
     try {
-
         // Kiểm tra xem tài khoản tồn tại
-        const hashedPass = hash.MD5(password)
+        const hashedPass = hash.MD5(password);
         const user = await db.Account.findOne({
-            where: { email, password: hashedPass}
+            where: { email, password: hashedPass }
         });
 
         if (!user) {
             return res.status(401).json({ error: 'Email, passowrd invalid!' });
         }
-        const loginToken =  jwt.sign({userId: user.id, role: user.role}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '7d'});
-        // const loginToken = createJWT(dataUser);
+        
+        const loginToken = jwt.sign({ userId: user.id, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
+
+        // Lưu token vào cookie
+        res.cookie('loginToken', loginToken, { 
+            httpOnly: true, // Không cho truy cập cookie từ phía client (JavaScript)
+            maxAge: 7 * 24 * 60 * 60 * 1000 // Thời gian sống của cookie, ở đây là 7 ngày
+        });
+
         res.status(200).json({
             message: 'Login successful',
-            user:user,
+            user: user,
             loginToken,
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Sever err' });
+        res.status(500).json({ error: 'Server error' });
     }
 }
+
 
 // Staff is created by Admin
 const createStaff = async (req, res) => {
@@ -119,7 +122,12 @@ const createStaff = async (req, res) => {
     }
 }
 
+//Logout function
+const logout = (req, res) => {
+    res.status(200).json({ message: 'Logout successful' });
+  }
+
 
 module.exports = {
-    getHomePage, login, Register, getRegisterPage, createStaff
+    getHomePage, login, Register, getRegisterPage, createStaff, logout
 }

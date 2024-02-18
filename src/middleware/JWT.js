@@ -14,6 +14,29 @@ const createJWT = (payload) => {
 
 const authenToken = (req, res, next) => {
   const authorizationHeader = req.rawHeaders[3];
+  if (!authorizationHeader) {
+    return res.sendStatus(401);
+  }
+  const token = authorizationHeader.split(' ')[1];
+
+  if (!token) {
+    return res.sendStatus(401);
+  }
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+
+    if (err) {
+      return res.sendStatus(403); // Forbidden
+    }
+    // If token is valid, you might want to attach the user information to the request object
+    req.user = data;
+    req.token = token;
+    next();
+  });
+}
+const blacklist = [];
+//Logout function
+const logout = (req, res, next) => {
+  const authorizationHeader = req.rawHeaders[1];
 
   if (!authorizationHeader) {
     return res.sendStatus(401);
@@ -24,34 +47,23 @@ const authenToken = (req, res, next) => {
     return res.sendStatus(401);
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
-   
     if (err) {
       return res.sendStatus(403); // Forbidden
     }
-    // If token is valid, you might want to attach the user information to the request object
-    req.user = data;
+    const index = req.rawHeaders.indexOf(token);
+    if (index !== -1) {
+      req.rawHeaders.splice(index, 1);
+    }
+
+    res.status(200).json({ message: 'Logout successful' });
     next();
   });
 }
-// const verifyToken = (req, res, next) => {
-//   const token = req.headers?.authorization;
-//   if (!token){
-//      console.log(token);
-//     return res.status(403).json({ success: false, message: "Creds not provide" });
-//   }
 
-//   const rawToken = token?.split(" ")[1];
-//   jwt.verify(rawToken, process.env.ACCESS_TOKEN_SECRET, (error, decode) => {
-//     if (error)
-//       return res.status(401).json({ success: false, message: "Creds invalid" });
-//     req.user = decode;
-//     next();
-//   });
-// };
+
 
 const isAdmin = (req, res, next) => {
   const { role } = req.user;
-  console.log("aa")
   if (role !== "ADMIN") {
     return res
       .status(401)
@@ -70,6 +82,25 @@ const isStaff = (req, res, next) => {
   next();
 };
 
+const isCustomer = (req, res, next) => {
+  const { role } = req.user;
+  if (role !== "USER") {
+    return res
+      .status(401)
+      .json({ success: false, message: "You are not USER" });
+  }
+  next();
+};
+
+const isExist = (req, res, next) => {
+  const { role } = req.user;
+  if (role !== "USER"&&role !== "ADMIN"&&role !== "ADMIN") {
+    return res
+      .status(401)
+      .json({ success: false, message: "You are not USER" });
+  }
+  next();
+};
 module.exports = {
-  createJWT, isAdmin, isStaff, authenToken
+  createJWT, isAdmin, isStaff, authenToken, logout, isCustomer, isExist
 };
