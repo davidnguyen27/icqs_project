@@ -1,19 +1,13 @@
-// JWT
 
 const express = require('express')
 const router = express.Router()
 const authController = require('../controllers/authController');
-const { authenToken, logout} = require('../middleware/JWT');;
-    router.get('/', authController.getHomePage)
+const { authenToken} = require('../middleware/JWT');;
+
     // Login
-    router.post('/login', authController.login,
-    )   
-    //Register for user
-    router.post('/registerPage', authController.getRegisterPage)
-    router.post('/register', authController.Register)
+    router.post('/login', authController.login, )   
     //Admin create new staff account
-    router.post('/createStaff', authController.createStaff)
-    router.get('/logout', logout);
+    router.get('/logout', authController.logout);
     module.exports = router
 
 

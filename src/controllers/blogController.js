@@ -85,6 +85,31 @@ let hiddenBlog = async (req, res) => {
     }
 }
 
+let restoreBlog = async (req, res) => {
+    try {
+        const blogId = req.params.id; // Assuming the blog id is passed in the request parameters
+
+        // Find the blog by id
+        const blog = await db.Blogs.findOne({
+            where: { id: blogId, status: 0 },
+        });
+
+        if (!blog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
+        // blog.status = "0";
+
+        await blog.update({ status: 1 });
+        await blog.save;
+
+        // Return the updated blog detail
+        res.status(200).json({ blog });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 let updateBlog = async (req, res) => {
     const { title, image, content } = req.body;
     const { userId } = req.user;
@@ -117,5 +142,5 @@ let updateBlog = async (req, res) => {
 
 
 module.exports = {
-    getBlogPage, createBlog, detailBlog, hiddenBlog, updateBlog
+    getBlogPage, createBlog, detailBlog, hiddenBlog, updateBlog, restoreBlog
 }

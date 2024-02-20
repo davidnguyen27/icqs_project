@@ -16,6 +16,7 @@ function isPhoneNumber(str) {
     if (str.length !== 10) {
         return false;
     }
+
     // If all checks pass, true is returned
     return true;
 }
