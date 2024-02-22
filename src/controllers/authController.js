@@ -21,8 +21,10 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(401).json({ error: 'Email, passowrd invalid!' });
         }
-        
-        const loginToken = jwt.sign({ userId: user.id, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
+        if(user.status == 0){
+            return res.status(401).json({ error: 'account has been disabled' });
+        }
+        const loginToken = jwt.sign({ userId: user.id, role: user.role, status: user.status }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
 
         // Lưu token vào cookie
         res.cookie('loginToken', loginToken, { 

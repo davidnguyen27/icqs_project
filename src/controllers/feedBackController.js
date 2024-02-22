@@ -2,8 +2,10 @@ const validation = require('../middleware/validation')
 const db = require('../models');
 const { Op, INTEGER } = require('sequelize');
 let createFeedBack = async (req, res) => {
-    const { project_id, comment, time, rating } = req.body;
+    const { comment, rating } = req.body;
     const { userId } = req.user;
+    const project_id = req.params.id;
+    console.log("check:", project_id)
     try {
         if (rating == '') {
             return res.status(401).json({ error: 'You have not rated it yet' });
@@ -12,7 +14,6 @@ let createFeedBack = async (req, res) => {
             project_id,
             customer_id: userId,
             comment,
-            time,
             rating,
         });
         res.status(201).json(newFeedBack);
@@ -23,7 +24,7 @@ let createFeedBack = async (req, res) => {
     }
 }
 
-let getAllFeedBack = async (req, res) => {
+const getAllFeedBack = async (req, res) => {
     try {
         const feedbacks = await db.FeedBack.findAll({
             order: [['createdAt', 'DESC']] // Sắp xếp theo thời gian tạo giảm dần
@@ -53,7 +54,6 @@ let getAllFeedBack = async (req, res) => {
 let hiddenFeedBack = async (req, res) => {
     try {
         const feedBackID = req.params.id;
-
         const feedBack = await db.FeedBack.findOne({
             where: { id: feedBackID, status: 1 },
         });
@@ -157,7 +157,7 @@ let negativeFeedBack = async (req, res) => {
         const feedbacks = await db.FeedBack.findAll({
             where: {
                 rating: {
-                    [Op.lte]: 2 // [Op.gte] là toán tử "greater than or equal" (lớn hơn hoặc bằng)
+                    [Op.lte]: 2 
                 }
             },
             attributes: ['rating', 'comment'], // Chỉ lấy hai trường rating và comment
