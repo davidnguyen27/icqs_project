@@ -5,7 +5,6 @@ var md5 = require('md5');
 // JWT
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const { createJWT, verifyToken } = require('../middleware/JWT')
 
 
 //login function
@@ -21,16 +20,10 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(401).json({ error: 'Email, passowrd invalid!' });
         }
-        if(user.status == 0){
+        if (user.status == 0) {
             return res.status(401).json({ error: 'account has been disabled' });
         }
-        const loginToken = jwt.sign({ userId: user.id, role: user.role, status: user.status }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
-
-        // Lưu token vào cookie
-        res.cookie('loginToken', loginToken, { 
-            httpOnly: true, // Không cho truy cập cookie từ phía client (JavaScript)
-            maxAge: 7 * 24 * 60 * 60 * 1000 // Thời gian sống của cookie, ở đây là 7 ngày
-        });
+        const loginToken = jwt.sign({ userId: user.id, role: user.role, status: user.status, userMail: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
 
         res.status(200).json({
             message: 'Login successful',
@@ -45,11 +38,25 @@ const login = async (req, res) => {
 
 
 //Logout function
-const logout = (req, res) => {
-    res.status(200).json({ message: 'Logout successful' });
-  }
+const logout = async (req, res) => {
+    const authorizationHeader = req.rawHeaders[1];
+    if (!authorizationHeader) {
+        return res.sendStatus(401);
+    }
+    const token = authorizationHeader.split(' ')[1];
+
+    if (!token) {
+        return res.sendStatus(401);
+    }
+
+    console.log("check token", token)
+    const addTokenToBackList = await db.blackListToken.create({
+        token
+    });
+    res.status(201).json(addTokenToBackList);
+}
 
 
 module.exports = {
- login, logout
+    login, logout
 }

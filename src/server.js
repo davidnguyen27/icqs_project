@@ -2,9 +2,6 @@ const express = require('express');
 const configViewEngine = require('./config/viewEngine');
 const initWebRoute = require('./route/index');
 require('./config/connectDB')
-
-
-const mail = require('../src/mailVirify')
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));

@@ -19,5 +19,7 @@ const { authenToken, isAdmin, authenToken2, isStaff, isUser} = require('../middl
     router.get('/getUserInfor',authenToken, isUser, accountController.getInFor)
     // Get staff's infor
     router.get('/getStaffInfor',authenToken, isStaff, accountController.getInFor)
+
+    router.put('/changePassword',authenToken2, isUser, accountController.changePassword);
     module.exports = router
 

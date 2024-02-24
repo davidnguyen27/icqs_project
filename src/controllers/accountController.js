@@ -194,6 +194,77 @@ const restoreAccount = async (req, res) => {
     }
 }
 
+//changePassword function
+const changePassword = async (req, res) => {
+    const { oldPassword, newPass, newPass2 } = req.body;
+    const { userMail } = req.user;
+    try {
+        const hashedPass = hash.MD5(oldPassword);
+        const account = await db.Account.findOne({
+            where: { email: userMail, password: hashedPass }
+        });
+        if (!account) {
+            return res.status(401).json({ error: 'Wrong password!' });
+        }
+        if (validation.isValidPassword(newPass) == false || validation.isValidPassword(newPass2) == false) {
+            return res.status(401).json({ error: 'Password must have a minimum length of 8 characters including upper and lower case letters and numbers!' });
+        }
+        if (newPass != newPass2) {
+            return res.status(401).json({ error: 'New passowrd must be the same!' });
+        }
+        const hashedPass2 = hash.MD5(newPass);
+        await account.update({ password:hashedPass2 });
+        await account.save;
+        res.status(200).json({
+            message: 'Change password successful',
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
+//changePassword function
+// const resetPassword = async (req, res) => {
+//     const { verifyCode, oldPassword, newPass, newPass2 } = req.body;
+//     const { userMail } = req.user;
+//     try {
+//         const hashedPass = hash.MD5(oldPassword);
+//         const account = await db.Account.findOne({
+//             where: { email: userMail, password: hashedPass }
+//         });
+//         if (!account) {
+//             return res.status(401).json({ error: 'Mật khẩu cũ sai' });
+//         }
+//         if (validation.isValidPassword(newPass) == false || validation.isValidPassword(newPass2) == false) {
+//             return res.status(401).json({ error: 'Mật khẩu phải có độ dài tối thiểu 8 ký tự bao gồm chữ hoa, chữ thường và số!' });
+//         }
+//         if (newPass != newPass2) {
+//             return res.status(401).json({ error: 'Mật khẩu mới và nhập lại mật khẩu phải giống nhau!' });
+//         }
+//         const isVerifyCodeValid = await db.Account.findOne({
+//             where: {
+//                 verifyCode: verifyCode,
+//                 createdAt: {
+//                     [Sequelize.Op.gt]: Sequelize.literal(`NOW() - INTERVAL 2 MINUTE`)
+//                 }
+//             }
+//         });
+//         if (!isVerifyCodeValid) {
+//             return res.status(401).json({ error: 'Mã xác thực không hợp lệ hoặc đã hết hạn' });
+//         }
+//         const hashedPass2 = hash.MD5(newPass);
+//         await account.update({ password: hashedPass2 });
+//         await account.save;
+//         res.status(200).json({
+//             message: 'Thay đổi mật khẩu thành công',
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Lỗi máy chủ' });
+//     }
+// }
+
 module.exports = {
-    createStaff, register, getStaffInfoByAdmin, getUserInfoByAdmin, updateProfile, hiddenAccount, restoreAccount, getInFor
+    createStaff, register, getStaffInfoByAdmin, getUserInfoByAdmin, updateProfile, hiddenAccount, restoreAccount, getInFor, changePassword
 }

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const db = require('../models');
 // { expiresIn: '30s' }
 const createJWT = (payload) => {
 
@@ -12,16 +13,23 @@ const createJWT = (payload) => {
   return token;
 };
 
-const authenToken = (req, res, next) => {
+const authenToken = async (req, res, next) => {
   const authorizationHeader = req.rawHeaders[1];
   if (!authorizationHeader) {
     return res.sendStatus(401);
   }
   const token = authorizationHeader.split(' ')[1];
-
+  console.log('check token:', token)
   if (!token) {
     return res.sendStatus(401);
   }
+  const tokenBlackList = await db.blackListToken.findOne({
+    where: { token: token },
+  });
+  if (tokenBlackList) {
+    return res.status(401).json({ error: 'Please log in again' });
+  }
+
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
 
     if (err) {
@@ -34,7 +42,7 @@ const authenToken = (req, res, next) => {
   });
 }
 
-const authenToken2 = (req, res, next) => {
+const authenToken2 = async (req, res, next) => {
   const authorizationHeader = req.rawHeaders[3];
   if (!authorizationHeader) {
     return res.sendStatus(401);
@@ -43,6 +51,12 @@ const authenToken2 = (req, res, next) => {
 
   if (!token) {
     return res.sendStatus(401);
+  }
+  const tokenBlackList = await db.blackListToken.findOne({
+    where: { token: token },
+  });
+  if (tokenBlackList) {
+    return res.status(401).json({ error: 'Please log in again' });
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
 
@@ -59,7 +73,7 @@ const authenToken2 = (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   const { role } = req.user;
-  
+
   const Role = role.toString();
   console.log("check ad", Role)
   if (Role !== "ADMIN") {
@@ -92,7 +106,7 @@ const isUser = (req, res, next) => {
 
 const isExist = (req, res, next) => {
   const { role } = req.user;
-  if (role !== "USER"&&role !== "ADMIN"&&role !== "STAFF") {
+  if (role !== "USER" && role !== "ADMIN" && role !== "STAFF") {
     return res
       .status(401)
       .json({ success: false, message: "You are not USER" });
