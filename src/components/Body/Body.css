@@ -4,6 +4,7 @@
   border: 2px solid #000 !important;
   display: block !important;
   margin: 20px auto !important;
+  transition: 0.3s;
 }
 
 .btn-view-more:hover {
@@ -13,11 +14,30 @@
 
 .img-style {
   width: 100%;
-  height: auto;
+  max-height: 300px;
   display: block;
+  transition: 0.3s;
+  border-radius: 10px;
 }
 
+.img-style:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+
+
 /* BodyPart3 */
+
+.bodypart3-box{
+
+}
+
+.bodypart3-item{
+ 
+  background-color: #ffc914;
+  margin-right: 10px;
+}
 .BodyPart3 {
   contain: layout style;
 }
@@ -71,4 +91,12 @@
   border-radius: 10px;
   margin-left: 123px;
   margin-bottom: 70px;
+}
+
+
+/* Body2 */
+#video-background{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

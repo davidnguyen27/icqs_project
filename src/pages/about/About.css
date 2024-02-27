@@ -80,7 +80,7 @@
 
 .image-box::before {
   content: '';
-  background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ (ví dụ: màu đen với độ mờ 50%) */
+  background-color: rgba(0, 0, 0, 0.5); 
   position: absolute;
   top: 0;
   left: 0;

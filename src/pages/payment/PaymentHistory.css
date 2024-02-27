@@ -1,0 +1,17 @@
+.payment-container{
+    margin-bottom: 100px;
+}
+
+.payment-pagination{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-image{
+    width: 330px;
+    min-height: 600px;
+    object-fit: cover;
+    border-radius: 10px;
+}
