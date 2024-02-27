@@ -1,7 +1,18 @@
 import axios from "axios";
-const API = axios.create({ baseURL: "http://localhost:5000" });
+import { getToken } from "../Utils/Token";
+import { Api } from "../Utils/Api";
 
-export const getSearchProperties = (search, page, limit) =>
-  API.get(`/api/v1/property?name=${search}&page=${page}&limit=${limit}`);
+const API = Api();
 
-// export const getPropertyById = (id) => API.get(`/api/v1/property/${id}`);
+export const getSearchProperties = (search, page, limit) => {
+  const token = getToken();
+
+  return API.get(
+    `/api/v1/property?name=${search}&page=${page}&limit=${limit}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};

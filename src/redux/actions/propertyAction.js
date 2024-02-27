@@ -10,13 +10,3 @@ export const getSearchProperties =
       dispatch({ type: "PROPERTY_FAIL" });
     }
   };
-
-// export const getPropertyById = (id) => async (dispatch) => {
-//   dispatch({ type: 'PROPERTY_START' });
-//   try {
-//     const data = await PropertyApi.getPropertyById(id);
-//     dispatch({ type: 'PROPERTY_SUCCESS_ID', payload: { data } });
-//   } catch (error) {
-//     dispatch({ type: 'PROPERTY_FAIL' });
-//   }
-// };

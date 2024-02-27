@@ -1,5 +1,6 @@
-.container-quotation{
+/* .container-quotation{
     margin-top: 30px;
+    margin-bottom: 200px;
 }
 
 .form-step1{width: 100%;}
@@ -15,6 +16,15 @@
     margin-bottom: 15px;
 }
 
+.date-quotation{
+   
+    float: right;
+}
+
+.date-quotation span:nth-of-type(1){
+    margin-right: 20px;
+}
+
 .form-step1 .button-step1{
     border: none;
     outline: none;
@@ -27,4 +37,60 @@
     color: #ffc914;
     font-weight: bold;
     cursor: pointer;
+}
+
+.image-modal-quotation{
+    width: 100%;
+}
+
+.button-quotation-step2{
+    margin-top: 30px !important;
+    right: 0;
+}
+
+.step2-money{
+    margin-top: 30px;
+
+}
+
+.list-item{
+    margin-left: 10px;
+}
+
+.text-error{
+    color: red;
+    font-size: 12px;
+} */
+
+
+.w-100{
+    width: 100%;
+}
+
+.form-quotaion{
+    margin-top: 50px;
+}
+
+.input-style{
+    border: 1px solid #333;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.label-title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form-information{
+    margin-top: 30px;
+    display: flex;
+
+}
+
+.content-input{
+   
 }

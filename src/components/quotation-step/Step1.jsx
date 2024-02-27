@@ -4,6 +4,11 @@ import React from "react";
 const Step1 = () => {
   return (
     <Container>
+      <div className="date-quotation">
+        <span>Ngày soạn báo giá:</span>
+        <span>28/01/2024</span>
+      </div>
+
       <form action="/action_page.php" className="form-step1">
         <label for="fname">Nhập tên</label>
         <br />
@@ -17,9 +22,7 @@ const Step1 = () => {
         <br />
         <input type="text" id="lname" name="lname" />
         <br />
-        <label for="lname">Ngày soạn báo giá</label>
-        <br />
-        <span>28/01/2024</span>
+
         <br />
         <br />
         <input type="submit" value="Submit" className="button-step1" />

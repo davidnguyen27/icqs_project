@@ -8,13 +8,16 @@ import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   Container,
   IconButton,
   Menu,
+  MenuItem,
   Stack,
   Toolbar,
+  Tooltip,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -39,15 +42,24 @@ const navItemsAuth = [
   { icon: <FeedIcon className="nav-icons" />, name: "Blogs" },
   { icon: <AccountBoxIcon className="nav-icons" />, name: "About" },
   { icon: <ContactsIcon className="nav-icons" />, name: "Contact" },
-  { icon: <PersonIcon className="nav-icons" />, name: "Logout" },
+  { icon: <PersonIcon className="nav-icons" />, name: "Auth" },
 ];
+const settings = ["Profile", "History payment", "Logout"];
 
 const Header = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [search, setSearch] = useState();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
   const navigate = useNavigate();
   const toggleDrawer = (open) => (e) => {
     if (e.type === "keydown" && (e.key === "Tab" || e.key === "Shift")) {
@@ -103,10 +115,7 @@ const Header = () => {
         <AppBar position="static" className="app-bar">
           <Container maxWidth="lg">
             <Toolbar className="sub-nav">
-              <Box
-                className={`brand-box ${isScrolled ? "brand-fixed" : ""}`}
-                onClick={() => navigate("/")}
-              >
+              <Box className="brand-box" onClick={() => navigate("/")}>
                 <HomeIcon className="brand-icon" />
                 <Typography
                   variant="h4"
@@ -163,15 +172,71 @@ const Header = () => {
                       color="inherit"
                       onClick={(e) => {
                         {
-                          item.name === "Logout" && handleLogout(e);
+                          item.name === "About" && navigate("/about");
                         }
                         {
-                          item.name === "About" && navigate("/about");
+                          item.name === "Blogs" && navigate("/blogs");
                         }
                       }}
                     >
-                      {item.icon}
-                      {item.name}
+                      {item.name === "Auth" ? (
+                        <>
+                          <Tooltip title="Open settings">
+                            <IconButton
+                              onClick={handleOpenUserMenu}
+                              sx={{ p: 0 }}
+                            >
+                              <Avatar
+                                alt="Remy Sharp"
+                                src="/static/images/avatar/2.jpg"
+                              />
+                            </IconButton>
+                          </Tooltip>
+                          <Menu
+                            sx={{ mt: "45px" }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                              vertical: "top",
+                              horizontal: "right",
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                          >
+                            {settings.map((setting) => (
+                              <MenuItem
+                                key={setting}
+                                onClick={(e) => {
+                                  {
+                                    handleCloseUserMenu(e);
+                                  }
+                                  {
+                                    setting === "Logout" && handleLogout(e);
+                                  }
+                                  {
+                                    setting === "History payment" &&
+                                      navigate("/user/payment");
+                                  }
+                                }}
+                              >
+                                <Typography textAlign="center">
+                                  {setting}
+                                </Typography>
+                              </MenuItem>
+                            ))}
+                          </Menu>
+                        </>
+                      ) : (
+                        <>
+                          {item.icon}
+                          {item.name}
+                        </>
+                      )}
                     </Button>
                   ))}
               </Stack>

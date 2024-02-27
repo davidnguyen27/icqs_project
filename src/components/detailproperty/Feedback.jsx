@@ -8,32 +8,39 @@ import {
   Typography,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createFeedback,
+  getFeedbackType,
+} from "../../redux/actions/feedbackAction";
+import { format } from "date-fns";
+import { formatDate } from "../../Utils/FormatDate";
 
-const Feedback = () => {
+const Feedback = ({ idProperty }) => {
   const user = useSelector((state) => state.authReducer.authData);
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(2);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
+  const handleComment = (e) => {
+    e.preventDefault();
+    const feedback = {
+      rating: rating,
+      comment: comment,
+    };
+    dispatch(createFeedback(feedback, idProperty.id));
+    setRating(0);
+    setComment("");
+  };
+  useEffect(() => {
+    dispatch(getFeedbackType("", ""));
+  }, [handleComment]);
+  const feedbacks = useSelector((state) => state.feedbackReducer.feedbackData);
+  const filterFeedback = feedbacks?.data?.feedback?.filter(
+    (item) => item.property_id === idProperty.id
+  );
 
-  const dataUser = [
-    {
-      name: "duchai123",
-      rating: "4",
-      comment: "Dự án quá tốt, làm chất lượng, nhân viên quan tâm phục vụ tốt",
-      createAt: "28-01-2024",
-    },
-    {
-      name: "theanh",
-      rating: "3",
-      comment: "Dự án quá tốt, làm chất lượng, nhân viên quan tâm phục vụ tốt",
-      createAt: "12-08-2023",
-    },
-    {
-      name: "nhutduy0206",
-      rating: "1",
-      comment: "Chất lượng phục vụ tệ, nội thất quá nhanh hỏng",
-      createAt: "05-07-2023",
-    },
-  ];
   return (
     <div className="feedback-container">
       <Typography variant="h5" gutterBottom>
@@ -41,13 +48,13 @@ const Feedback = () => {
       </Typography>
       <Divider />
       <br />
-      {dataUser.map((user, index) => (
+      {filterFeedback.map((el, index) => (
         <div key={index}>
           <div>
             <Grid container spacing={2} className="user-feedback">
               <Grid item xs={1}>
                 <Avatar
-                  alt={user.name}
+                  alt={el.name}
                   src="/static/images/avatar/1.jpg"
                   style={{ height: "50px", width: "50px" }}
                 />
@@ -55,16 +62,16 @@ const Feedback = () => {
               <Grid item xs={11}>
                 <div className="user-name-feedback">
                   <Typography variant="body2" gutterBottom>
-                    {user.name}
+                    {el.name}
                   </Typography>
-                  <Rating name="simple-controlled" value={user.rating} />
+                  <Rating name="simple-controlled" value={el.rating} />
                   <br />
                   <Typography variant="caption" gutterBottom>
-                    {user.createAt}
+                    {formatDate(el.createdAt)}
                   </Typography>
                 </div>
                 <Typography variant="body1" gutterBottom>
-                  {user.comment}
+                  {el.comment}
                 </Typography>
               </Grid>
             </Grid>
@@ -74,16 +81,31 @@ const Feedback = () => {
       ))}
       <Divider />
       <br />
-      <Stack spacing={2}>
-        <Pagination count={10} color="primary" />
-      </Stack>
+      {/* <Stack spacing={2}>
+        <Pagination
+          count={Math.ceil(filterFeedback?.length / 3) + 1}
+          color="primary"
+          onClick={(e) => setPage(parseFloat(e.target.innerText) + 1)}
+        />
+      </Stack> */}
       <br />
       {user && (
         <div>
-          <Rating name="simple-controlled" value={1} />
+          <Rating
+            name="simple-controlled"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+          />
           <div className="input-comment-feedback">
-            <input placeholder="Comment" />
-            <SendIcon className="icon-comment" />
+            <input
+              value={comment}
+              placeholder="Comment"
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <SendIcon
+              className="icon-comment"
+              onClick={(e) => handleComment(e)}
+            />
           </div>
         </div>
       )}

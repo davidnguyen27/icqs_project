@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { useNavigate, Link } from "react-router-dom";
 import Feedback from "./Feedback";
-const IntroDetailProperty = ({ property }) => {
+const IntroDetailProperty = ({ property, idProperty }) => {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#cccc",
     ...theme.typography.body2,
@@ -33,7 +33,7 @@ const IntroDetailProperty = ({ property }) => {
               <Link>Mẫu thiết kế nội thất chung cư</Link>
             </span>
           </div>
-          <Feedback />
+          <Feedback idProperty={idProperty} />
         </Grid>
         <Grid item xs={4}>
           <Item>

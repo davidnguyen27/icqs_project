@@ -10,7 +10,7 @@ import "./Search.css";
 import Footer from "../components/Footer/Footer";
 const Search = () => {
   const search = useParams();
-  const [page, setPage] = useState();
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const properties = useSelector(
     (state) => state?.propertyReducer.propertyData
@@ -19,7 +19,7 @@ const Search = () => {
   useEffect(() => {
     dispatch(getSearchProperties(search.param, page, 6));
   }, [search, page]);
-  console.log(properties);
+
   return (
     <>
       <Header />
@@ -30,7 +30,16 @@ const Search = () => {
           <NotFoundSearch />
         )}
         {properties?.data?.property.rows.length > 0 && (
-          <Stack spacing={2} style={{ marginTop: "30px", marginLeft: "30%" }}>
+          <Stack
+            spacing={2}
+            style={{
+              marginTop: "30px",
+              marginBottom: "100px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Pagination
               count={Math.ceil(properties?.data?.property.count / 6)}
               variant="outlined"

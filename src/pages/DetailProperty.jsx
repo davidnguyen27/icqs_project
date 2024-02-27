@@ -29,7 +29,7 @@ const DetailProperty = () => {
         <Typography variant="h4">
           Mẫu thiết kế nội thất {property.style} đẹp, ấn tượng nhất 2023
         </Typography>
-        <IntroDetailProperty property={property} />
+        <IntroDetailProperty property={property} idProperty={idProperty} />
       </Container>
       <Footer />
     </>
