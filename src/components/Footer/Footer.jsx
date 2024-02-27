@@ -1,10 +1,8 @@
-import { Grid, Typography, Paper, Link, IconButton, Container, BottomNavigation, Box } from '@mui/material';
+import { Grid, Typography, IconButton, Container, Box } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 
 import './Footer.css';
-
-const Zalo = () => <span>ZaloIcon</span>;
 
 const Footer = () => {
   return (
@@ -69,9 +67,12 @@ const Footer = () => {
             <YouTubeIcon className="icon-footer" />
           </IconButton>
           <IconButton aria-label="tiktok" component="a" href="https://tiktok.com"></IconButton>
-          <IconButton aria-label="zalo" component="a" href="https://zalo.me" className="icon-footer">
-            <Zalo />
-          </IconButton>
+          <IconButton
+            aria-label="zalo"
+            component="a"
+            href="https://zalo.me"
+            className="icon-footer"
+          ></IconButton>
         </Grid>
       </Container>
     </Box>

@@ -12,14 +12,13 @@ import {
   Button,
   Container,
   IconButton,
-  Menu,
   Stack,
   Toolbar,
   Typography,
   useMediaQuery,
 } from '@mui/material';
 import { Responsive } from '../../Utils/Responsive';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import LoginModal from '../../Auth/LoginModal';
 import { useDispatch, useSelector } from 'react-redux';
 import BottomHeader from './BottomHeader';
@@ -28,6 +27,7 @@ import DrawerHeader from './DrawerHeader';
 import { useNavigate } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
 import { userLogout } from '../../redux/actions/authAction';
+
 const navItems = [
   { icon: <FeedIcon className="nav-icons" />, name: 'Blogs' },
   { icon: <AccountBoxIcon className="nav-icons" />, name: 'About' },
@@ -46,7 +46,6 @@ const Header = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [search, setSearch] = useState();
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const navigate = useNavigate();
   const toggleDrawer = (open) => (e) => {
@@ -79,23 +78,10 @@ const Header = () => {
     }
   };
 
-  const handleScroll = () => {
-    const offset = window.scrollY;
-    if (offset > 200) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  };
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(userLogout());
   };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <div>
@@ -103,7 +89,7 @@ const Header = () => {
         <AppBar position="static" className="app-bar">
           <Container maxWidth="lg">
             <Toolbar className="sub-nav">
-              <Box className={`brand-box ${isScrolled ? 'brand-fixed' : ''}`} onClick={() => navigate('/')}>
+              <Box className="brand-box" onClick={() => navigate('/')}>
                 <HomeIcon className="brand-icon" />
                 <Typography variant="h4" component="div" noWrap className="brand-text">
                   MY HOUSE
@@ -171,12 +157,7 @@ const Header = () => {
             <hr />
           </Container>
           {isResponsive ? (
-            <Stack
-              className={`header-bottom ${isScrolled ? 'bottom-fixed' : ''}`}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
+            <Stack direction="row" spacing={2} justifyContent="center">
               {navItems.map((item, index) => (
                 <Button
                   key={index}
@@ -191,7 +172,7 @@ const Header = () => {
               ))}
             </Stack>
           ) : (
-            <BottomHeader className={isScrolled ? 'bottom-fixed' : ''} />
+            <BottomHeader />
           )}
         </AppBar>
       </Responsive>

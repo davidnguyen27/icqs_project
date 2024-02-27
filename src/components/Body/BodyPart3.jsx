@@ -21,7 +21,7 @@ const dataCard = [
 
 const BodyPart3 = () => {
   return (
-    <div>
+    <div style={{ margin: '50px auto' }}>
       <Grid container spacing={3} className="bodypart3-box">
         {dataCard.map((item) => (
           <Grid item xs={2} sm={4} md={4} className="bodypart3-item">

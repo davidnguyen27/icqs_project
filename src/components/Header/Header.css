@@ -87,19 +87,3 @@ hr {
   margin-top: 10px;
   border: 1px solid #e0e0e0;
 }
-
-/* Header.css */
-.brand-fixed {
-  position: fixed;
-  top: 0;
-  z-index: 1100; /* Ensure it's above other content */
-}
-
-.bottom-fixed {
-  position: fixed;
-  top: 64px; /* Height of the top AppBar, adjust as needed */
-  z-index: 1100;
-  width: 100%; /* Ensure it takes full width */
-  background-color: white; /* Or any background color you prefer */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: adds shadow for better visibility */
-}
