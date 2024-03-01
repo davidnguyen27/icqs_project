@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Api } from "../Utils/Api";
 import { getToken } from "../Utils/Token";
 

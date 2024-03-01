@@ -40,7 +40,7 @@ const Feedback = ({ idProperty }) => {
   const filterFeedback = feedbacks?.data?.feedback?.filter(
     (item) => item.property_id === idProperty.id
   );
-
+  console.log(feedbacks);
   return (
     <div className="feedback-container">
       <Typography variant="h5" gutterBottom>
@@ -48,7 +48,7 @@ const Feedback = ({ idProperty }) => {
       </Typography>
       <Divider />
       <br />
-      {filterFeedback.map((el, index) => (
+      {filterFeedback?.map((el, index) => (
         <div key={index}>
           <div>
             <Grid container spacing={2} className="user-feedback">

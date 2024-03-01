@@ -44,7 +44,15 @@ const navItemsAuth = [
   { icon: <ContactsIcon className="nav-icons" />, name: "Contact" },
   { icon: <PersonIcon className="nav-icons" />, name: "Auth" },
 ];
-const settings = ["Profile", "History payment", "Logout"];
+const navItemsAuthAdmin = [
+  { icon: <FeedIcon className="nav-icons" />, name: "Blogs" },
+  { icon: <AccountBoxIcon className="nav-icons" />, name: "About" },
+  { icon: <ContactsIcon className="nav-icons" />, name: "Contact" },
+  { icon: <ContactsIcon className="nav-icons" />, name: "Dashboard" },
+  { icon: <PersonIcon className="nav-icons" />, name: "Auth" },
+];
+
+const settings = ["Contract", "History payment", "Logout"];
 
 const Header = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -70,8 +78,9 @@ const Header = () => {
 
   const theme = useTheme();
   const isResponsive = useMediaQuery(theme.breakpoints.down("md"));
-
   const user = useSelector((state) => state.authReducer.authData);
+  const check = user?.data?.user?.role === "ADMIN" ? true : false;
+
   const dispatch = useDispatch();
 
   const handleSearch = (e) => {
@@ -143,102 +152,195 @@ const Header = () => {
                 </div>
               </Box>
               <Stack className="nav-menu" direction="row" spacing={2}>
-                {!user &&
-                  navItems.map((item, index) => (
-                    <Button
-                      key={index}
-                      className="nav-button"
-                      color="inherit"
-                      onClick={() => {
-                        setOpenLoginModal(item.name === "Login");
-                        {
-                          item.name === "About" && navigate("/about");
-                        }
-                        {
-                          item.name === "Blogs" && navigate("/blogs");
-                        }
-                      }}
-                    >
-                      {item.icon}
-                      {item.name}
-                    </Button>
-                  ))}
-
-                {user &&
-                  navItemsAuth.map((item, index) => (
-                    <Button
-                      key={index}
-                      className="nav-button"
-                      color="inherit"
-                      onClick={(e) => {
-                        {
-                          item.name === "About" && navigate("/about");
-                        }
-                        {
-                          item.name === "Blogs" && navigate("/blogs");
-                        }
-                      }}
-                    >
-                      {item.name === "Auth" ? (
-                        <>
-                          <Tooltip title="Open settings">
-                            <IconButton
-                              onClick={handleOpenUserMenu}
-                              sx={{ p: 0 }}
-                            >
-                              <Avatar
-                                alt="Remy Sharp"
-                                src="/static/images/avatar/2.jpg"
-                              />
-                            </IconButton>
-                          </Tooltip>
-                          <Menu
-                            sx={{ mt: "45px" }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                              vertical: "top",
-                              horizontal: "right",
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                              vertical: "top",
-                              horizontal: "right",
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                          >
-                            {settings.map((setting) => (
-                              <MenuItem
-                                key={setting}
-                                onClick={(e) => {
-                                  {
-                                    handleCloseUserMenu(e);
-                                  }
-                                  {
-                                    setting === "Logout" && handleLogout(e);
-                                  }
-                                  {
-                                    setting === "History payment" &&
-                                      navigate("/user/payment");
-                                  }
-                                }}
+                {!user
+                  ? navItems.map((item, index) => (
+                      <Button
+                        key={index}
+                        className="nav-button"
+                        color="inherit"
+                        onClick={() => {
+                          setOpenLoginModal(item.name === "Login");
+                          {
+                            item.name === "About" && navigate("/about");
+                          }
+                          {
+                            item.name === "Blogs" && navigate("/blogs");
+                          }
+                          {
+                            item.name === "Contact" && navigate("/contact");
+                          }
+                        }}
+                      >
+                        {item.icon}
+                        {item.name}
+                      </Button>
+                    ))
+                  : user?.data?.user?.role === "ADMIN"
+                  ? navItemsAuthAdmin.map((item, index) => (
+                      <Button
+                        key={index}
+                        className="nav-button"
+                        color="inherit"
+                        onClick={(e) => {
+                          {
+                            item.name === "About" && navigate("/about");
+                          }
+                          {
+                            item.name === "Blogs" && navigate("/blogs");
+                          }
+                          {
+                            item.name === "Contact" && navigate("/contact");
+                          }
+                          {
+                            item.name === "Dashboard" && navigate("/dashboard");
+                          }
+                        }}
+                      >
+                        {item.name === "Auth" ? (
+                          <>
+                            <Tooltip title="Open settings">
+                              <IconButton
+                                onClick={handleOpenUserMenu}
+                                sx={{ p: 0 }}
                               >
-                                <Typography textAlign="center">
-                                  {setting}
-                                </Typography>
-                              </MenuItem>
-                            ))}
-                          </Menu>
-                        </>
-                      ) : (
-                        <>
-                          {item.icon}
-                          {item.name}
-                        </>
-                      )}
-                    </Button>
-                  ))}
+                                <Avatar
+                                  alt="Remy Sharp"
+                                  src="/static/images/avatar/2.jpg"
+                                />
+                              </IconButton>
+                            </Tooltip>
+                            <Menu
+                              sx={{ mt: "45px" }}
+                              id="menu-appbar"
+                              anchorEl={anchorElUser}
+                              anchorOrigin={{
+                                vertical: "top",
+                                horizontal: "right",
+                              }}
+                              keepMounted
+                              transformOrigin={{
+                                vertical: "top",
+                                horizontal: "right",
+                              }}
+                              open={Boolean(anchorElUser)}
+                              onClose={handleCloseUserMenu}
+                            >
+                              {settings.map((setting) => (
+                                <MenuItem
+                                  key={setting}
+                                  onClick={(e) => {
+                                    {
+                                      handleCloseUserMenu(e);
+                                    }
+                                    {
+                                      setting === "Contract" &&
+                                        navigate("/user/contract");
+                                    }
+                                    {
+                                      setting === "Logout" && handleLogout(e);
+                                    }
+                                    {
+                                      setting === "History payment" &&
+                                        navigate("/user/payment");
+                                    }
+                                  }}
+                                >
+                                  <Typography textAlign="center">
+                                    {setting}
+                                  </Typography>
+                                </MenuItem>
+                              ))}
+                            </Menu>
+                          </>
+                        ) : (
+                          <>
+                            {item.icon}
+                            {item.name}
+                          </>
+                        )}
+                      </Button>
+                    ))
+                  : navItemsAuth.map((item, index) => (
+                      <Button
+                        key={index}
+                        className="nav-button"
+                        color="inherit"
+                        onClick={(e) => {
+                          {
+                            item.name === "About" && navigate("/about");
+                          }
+                          {
+                            item.name === "Blogs" && navigate("/blogs");
+                          }
+                          {
+                            item.name === "Contact" && navigate("/contact");
+                          }
+                        }}
+                      >
+                        {item.name === "Auth" ? (
+                          <>
+                            <Tooltip title="Open settings">
+                              <IconButton
+                                onClick={handleOpenUserMenu}
+                                sx={{ p: 0 }}
+                              >
+                                <Avatar
+                                  alt="Remy Sharp"
+                                  src="/static/images/avatar/2.jpg"
+                                />
+                              </IconButton>
+                            </Tooltip>
+                            <Menu
+                              sx={{ mt: "45px" }}
+                              id="menu-appbar"
+                              anchorEl={anchorElUser}
+                              anchorOrigin={{
+                                vertical: "top",
+                                horizontal: "right",
+                              }}
+                              keepMounted
+                              transformOrigin={{
+                                vertical: "top",
+                                horizontal: "right",
+                              }}
+                              open={Boolean(anchorElUser)}
+                              onClose={handleCloseUserMenu}
+                            >
+                              {settings.map((setting) => (
+                                <MenuItem
+                                  key={setting}
+                                  onClick={(e) => {
+                                    {
+                                      handleCloseUserMenu(e);
+                                    }
+                                    {
+                                      setting === "Contract" &&
+                                        navigate("/user/contract");
+                                    }
+                                    {
+                                      setting === "Logout" && handleLogout(e);
+                                    }
+                                    {
+                                      setting === "History payment" &&
+                                        navigate("/user/payment");
+                                    }
+                                  }}
+                                >
+                                  <Typography textAlign="center">
+                                    {setting}
+                                  </Typography>
+                                </MenuItem>
+                              ))}
+                            </Menu>
+                          </>
+                        ) : (
+                          <>
+                            {item.icon}
+                            {item.name}
+                          </>
+                        )}
+                      </Button>
+                    ))}
               </Stack>
               <IconButton className="toggle-menu" onClick={toggleDrawer(true)}>
                 <MenuIcon /> Menu

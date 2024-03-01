@@ -1,166 +1,38 @@
-// import * as React from "react";
-// import Box from "@mui/material/Box";
-// import Stepper from "@mui/material/Stepper";
-// import Step from "@mui/material/Step";
-// import StepButton from "@mui/material/StepButton";
-// import Button from "@mui/material/Button";
-// import Typography from "@mui/material/Typography";
-// import { Container } from "@mui/material";
-// import Header from "../../components/Header/Header";
-// import "./Quotation.css";
-// import Step1 from "../../components/quotation-step/Step1";
-// import Step2 from "../../components/quotation-step/Step2";
-// import Step3 from "../../components/quotation-step/Step3";
-// import Footer from "../../components/Footer/Footer";
-
-// const Quotation = () => {
-//   const steps = ["Điền thông tin", "Chọn mục ưu thích", "Hợp đồng báo giá"];
-//   const [activeStep, setActiveStep] = React.useState(0);
-//   const [completed, setCompleted] = React.useState({});
-
-//   const totalSteps = () => {
-//     return steps.length;
-//   };
-
-//   const completedSteps = () => {
-//     return Object.keys(completed).length;
-//   };
-
-//   const isLastStep = () => {
-//     return activeStep === totalSteps() - 1;
-//   };
-
-//   const allStepsCompleted = () => {
-//     return completedSteps() === totalSteps();
-//   };
-
-//   const handleNext = () => {
-//     const newActiveStep =
-//       isLastStep() && !allStepsCompleted()
-//         ? steps.findIndex((step, i) => !(i in completed))
-//         : activeStep + 1;
-//     setActiveStep(newActiveStep);
-//   };
-
-//   const handleBack = () => {
-//     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-//   };
-
-//   const handleStep = (step) => () => {
-//     setActiveStep(step);
-//   };
-
-//   const handleComplete = () => {
-//     const newCompleted = completed;
-//     newCompleted[activeStep] = true;
-//     setCompleted(newCompleted);
-//     handleNext();
-//   };
-
-//   const handleReset = () => {
-//     setActiveStep(0);
-//     setCompleted({});
-//   };
-
-//   return (
-//     <>
-//       <Header />
-//       <Container className="container-quotation">
-//         <Box sx={{ width: "100%" }}>
-//           <Stepper nonLinear activeStep={activeStep}>
-//             {steps.map((label, index) => (
-//               <Step key={label} completed={completed[index]}>
-//                 <StepButton color="inherit" onClick={handleStep(index)}>
-//                   {label}
-//                 </StepButton>
-//               </Step>
-//             ))}
-//           </Stepper>
-//           <div>
-//             {allStepsCompleted() ? (
-//               <React.Fragment>
-//                 <Typography sx={{ mt: 2, mb: 1 }}>
-//                   All steps completed - you&apos;re finished
-//                 </Typography>
-//                 <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-//                   <Box sx={{ flex: "1 1 auto" }} />
-//                   <Button onClick={handleReset}>Reset</Button>
-//                 </Box>
-//               </React.Fragment>
-//             ) : (
-//               <React.Fragment>
-//                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
-//                   {activeStep === 0 && (
-//                     <div>
-//                       <Step1 />
-//                     </div>
-//                   )}
-//                   {activeStep === 1 && (
-//                     <div>
-//                       <Step2 />
-//                     </div>
-//                   )}
-//                   {activeStep === 2 && (
-//                     <div>
-//                       {/* <PDFDownloadLink document={<Step3 />} fileName="Hợp đồng">
-//                         {({ loading }) => {
-//                           loading ? (
-//                             <Button>Loading document...</Button>
-//                           ) : (
-//                             <Button>Download</Button>
-//                           );
-//                         }}
-//                       </PDFDownloadLink> */}
-//                       {/* <Step3 /> */}
-//                     </div>
-//                   )}
-//                 </Typography>
-//                 <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-//                   <Button
-//                     color="inherit"
-//                     disabled={activeStep === 0}
-//                     onClick={handleBack}
-//                     sx={{ mr: 1 }}
-//                   >
-//                     Back
-//                   </Button>
-//                   <Box sx={{ flex: "1 1 auto" }} />
-//                   <Button onClick={handleNext} sx={{ mr: 1 }}>
-//                     Next
-//                   </Button>
-//                   {activeStep !== steps.length &&
-//                     (completed[activeStep] ? (
-//                       <Typography
-//                         variant="caption"
-//                         sx={{ display: "inline-block" }}
-//                       >
-//                         Step {activeStep + 1} already completed
-//                       </Typography>
-//                     ) : (
-//                       <Button onClick={handleComplete}>
-//                         {completedSteps() === totalSteps() - 1
-//                           ? "Finish"
-//                           : "Complete Step"}
-//                       </Button>
-//                     ))}
-//                 </Box>
-//               </React.Fragment>
-//             )}
-//           </div>
-//         </Box>
-//       </Container>
-//       <Footer />
-//     </>
-//   );
-// };
-
-// export default Quotation;
-
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header/Header";
-import { Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Typography } from "@mui/material";
 import "./Quotation.css";
+import { useDispatch } from "react-redux";
+import { createContract } from "../../redux/actions/contractAction";
 function Quotation() {
+  const [check, setCheck] = useState(false);
+  const dispatch = useDispatch();
+  const [contractData, setContractData] = useState({
+    title: "",
+    name: "",
+    address: "",
+    phone: "",
+    construction: "",
+    scale: "",
+    budget: "",
+  });
+  const handleClick = () => {
+    dispatch(createContract(contractData));
+    setCheck(true);
+    setContractData({
+      title: "",
+      name: "",
+      address: "",
+      phone: "",
+      construction: "",
+      scale: "",
+      budget: "",
+    });
+  };
+  const handleChange = (e) => {
+    setContractData({ ...contractData, [e.target.name]: e.target.value });
+  };
+  console.log(contractData);
   return (
     <>
       <Header />
@@ -174,25 +46,111 @@ function Quotation() {
           <div>
             <label className="label-title">NỘI DUNG</label>
             <br />
-            <input type="text" className="w-100 input-style" />
+            <input
+              type="text"
+              className="w-100 input-style"
+              name="title"
+              value={contractData.title}
+              onChange={(e) => handleChange(e)}
+            />
           </div>
           <div className="form-information">
             <div className="row">
-              <label className="label-title">NỘI DUNG</label>
+              <label className="label-title">Tên</label>
               <br />
-              <input type="text" className="input-style" />
+              <input
+                type="text"
+                className="input-style w-300"
+                name="name"
+                value={contractData.name}
+                onChange={(e) => handleChange(e)}
+              />
             </div>
-            <div className="row">
-              <label className="label-title">NỘI DUNG</label>
+            <div className="margin-l">
+              <label className="label-title">Địa chỉ</label>
               <br />
-              <input type="text" className="input-style" />
+              <input
+                type="text"
+                className="input-style w-300"
+                name="address"
+                value={contractData.address}
+                onChange={(e) => handleChange(e)}
+              />
             </div>
-            <div className="row">
-              <label className="label-title">NỘI DUNG</label>
+            <div className="margin-l">
+              <label className="label-title">Số điện thoại</label>
               <br />
-              <input type="text" className="input-style" />
+              <input
+                type="text"
+                className="input-style w-300"
+                name="phone"
+                value={contractData.phone}
+                onChange={(e) => handleChange(e)}
+              />
             </div>
           </div>
+          <div className="form-select">
+            <div className="row">
+              <label className="label-title">Công trình</label>
+              <br />
+              <select
+                name="construction"
+                className="w-300"
+                value={contractData.construction}
+                onChange={(e) => handleChange(e)}
+              >
+                <option value=""> -- công trình -- </option>
+                <option value="Chung cư">Chung cư</option>
+                <option value="Biệt thự">Biệt thự</option>
+                <option value="Nhà phố">Nhà phố</option>
+              </select>
+            </div>
+            <div className="margin-l">
+              <label className="label-title">Quy mô </label>
+              <br />
+              <select
+                name="scale"
+                className="w-300"
+                value={contractData.scale}
+                onChange={(e) => handleChange(e)}
+              >
+                <option value=""> -- quy mô -- </option>
+                <option value="1 phòng ngủ">1 phòng ngủ</option>
+                <option value="2 phòng ngủ">2 phòng ngủ</option>
+                <option value="3 phòng ngủ">3 phòng ngủ</option>
+              </select>
+            </div>
+            <div className="margin-l">
+              <label className="label-title">Ngân sách</label>
+              <br />
+              <select
+                name="budget"
+                className="w-300 select"
+                value={contractData.budget}
+                onChange={(e) => handleChange(e)}
+              >
+                <option value=""> -- ngân sách -- </option>
+                <option value="Dưới 50 triệu">Dưới 50 triệu</option>
+                <option value="Từ 50 đến 100 triệu">Từ 50 đến 100 triệu</option>
+                <option value="Trên 100 triệu">Trên 100 triệu</option>
+              </select>
+            </div>
+          </div>
+          {check && (
+            <p className="alert-text">
+              Bạn vui lòng chờ chúng tôi trong vòng 24 giờ sẽ có người liên hệ
+              lại bạn. Xin chân thành cảm ơn vì đã chọn chúng tôi !
+            </p>
+          )}
+
+          <Button
+            className="button"
+            variant="contained"
+            color="success"
+            onClick={() => handleClick()}
+          >
+            Gửi yêu cầu
+          </Button>
         </div>
       </Container>
     </>

@@ -14,7 +14,11 @@ const authReducer = (
     case "AUTH_LOGOUT":
       localStorage.removeItem("user");
       localStorage.removeItem("payment");
+      localStorage.removeItem("contract");
       return { ...state, authData: null, loading: false, error: false };
+    case "REGISTER_SUCCESS":
+      const newAccount = [...state.authData, payload.data];
+      return { ...state, authData: newAccount, loading: false };
     default:
       return { ...state };
   }

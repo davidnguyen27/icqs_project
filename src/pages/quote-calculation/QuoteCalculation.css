@@ -1,0 +1,51 @@
+.quote-title{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.quote-price{
+    display: flex;
+}
+
+.price-text{
+    color: red;
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+.quote-price .price{
+    margin-left: 20px !important;
+}
+.quote-acreage{
+    margin-bottom: 20px;
+}
+
+.quote-acreage input{
+
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.quote-acreage input:nth-of-type(2){
+    margin-left: 20px;
+}
+.button-quote{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 220%;
+}
+
+.button-remove{
+    cursor: pointer;
+    font-size: 12px !important;
+    font-weight: bold !important;
+}
+
+.note-quote{
+    margin-top: 30px;
+    color: #0185c2;
+    font-size: 12px;
+  
+}

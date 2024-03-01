@@ -85,10 +85,36 @@
     font-weight: bold;
 }
 
-.form-information{
+.form-information, .form-select{
     margin-top: 30px;
     display: flex;
+    width: 100%;
 
+}
+
+.w-300 {
+    width: 300px;
+}
+
+.margin-l{
+    margin-left: 11%;
+}
+
+.form-select select{
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.alert-text{
+    color: red;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.button{
+    margin-top: 30px !important;
 }
 
 .content-input{

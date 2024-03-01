@@ -4,17 +4,19 @@ import { Responsive } from "../../Utils/Responsive";
 import { Stack, Button, Menu, MenuItem, Fade } from "@mui/material";
 import { throttle } from "lodash";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useNavigate } from "react-router-dom";
 
 const navFilter = [
-  { label: "PRODUCT", options: ["Option 1", "Option 2"] },
-  { label: "INTERIOR DESIGN", options: ["Option 1", "Option 2"] },
-  { label: "INTERIOR CONSTRUCTION", options: ["Option 1", "Option 2"] },
-  { label: "COMPLETE PROJECT", options: ["Option 1", "Option 2"] },
-  { label: "DEPARTMENT", options: ["Option 1", "Option 2"] },
-  { label: "SHOWROOM", options: ["Option 1", "Option 2"] },
+  { label: "quote calculation", url: "/quote-calculation" },
+  { label: "INTERIOR DESIGN", url: "interior-design" },
+  { label: "INTERIOR CONSTRUCTION", url: "interior-construction" },
+  { label: "COMPLETE PROJECT", url: "complete-project" },
+  { label: "DEPARTMENT", url: "department" },
+  { label: "SHOWROOM", url: "showroom" },
 ];
 
 const BottomHeader = () => {
+  const navigate = useNavigate();
   return (
     <Responsive>
       <Stack
@@ -25,7 +27,13 @@ const BottomHeader = () => {
       >
         {navFilter.map((item, index) => (
           <div key={item.label}>
-            <Button className="header-bottom__button" color="inherit">
+            <Button
+              className="header-bottom__button"
+              color="inherit"
+              onClick={() => {
+                item.label === "quote calculation" && navigate(`${item.url}`);
+              }}
+            >
               {item.label}
             </Button>
           </div>

@@ -32,7 +32,7 @@ const BodyPart1 = () => {
         marginBottom="10px"
         noWrap
       >
-        Implemented Project
+        Công trình bên My House
       </Typography>
       <Container maxWidth="xl">
         <Grid container spacing={2} justifyContent="center">
