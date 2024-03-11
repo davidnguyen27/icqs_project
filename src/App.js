@@ -1,8 +1,8 @@
-import Home from "../src/pages/Home";
+import Home from "./pages/home/Home";
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Search from "./pages/Search";
-import DetailProperty from "./pages/DetailProperty";
+import Search from "./pages/search/Search";
+import DetailProperty from "./pages/propertydetail/DetailProperty";
 import { PaymentHistory } from "./pages/payment/PaymentHistory";
 import About from "./pages/about/About";
 import CompleteProject from "./pages/complete/CompleteProject";
@@ -13,6 +13,10 @@ import { useSelector } from "react-redux";
 import Dashboard from "./pages/admin/Dashboard";
 import QuoteCalculation from "./pages/quote-calculation/QuoteCalculation";
 import Contract from "./pages/contract/Contract";
+import Register from "./components/Auth/Register";
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   const user = useSelector((state) => state.authReducer.authData);
@@ -24,11 +28,16 @@ function App() {
     <React.Fragment>
       {checkAuth ? <Dashboard /> : ""}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={checkAuth ? <Navigate to={"/dashboard"} /> : <Home />}
+        />
+        <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
         <Route path="/search/:param" element={<Search />} />
         <Route path="/detail/:id" element={<DetailProperty />} />
         <Route path="/user/payment" element={<PaymentHistory />} />
+        <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/contract" element={<Contract />} />
         <Route path="/complete-project" element={<CompleteProject />} />
         <Route path="/quotation" element={<Quotation />} />
@@ -39,7 +48,22 @@ function App() {
           path="/dashboard"
           element={checkAuth ? <Dashboard /> : <Navigate to={"/"} />}
         />
+        <Route path="/" element={checkAuth && <Navigate to={"/dashboard"} />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
+      <ToastContainer />
     </React.Fragment>
   );
 }

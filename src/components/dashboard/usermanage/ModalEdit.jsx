@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { editUser } from "../../../redux/actions/userAction";
+import { editUser, getUser } from "../../../redux/actions/userAction";
 const style = {
   position: "absolute",
   top: "50%",
@@ -23,10 +23,9 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const ModalEdit = ({ open, handleClose, idUser }) => {
+const ModalEdit = ({ open, handleClose, idUser, page }) => {
   const dispatch = useDispatch();
   const listUser = useSelector((state) => state.userReducer.userData);
-  console.log(listUser.data.user);
   const filterUser = listUser?.data?.user?.rows.filter(
     (item) => item.id === idUser
   )[0];
@@ -34,11 +33,11 @@ const ModalEdit = ({ open, handleClose, idUser }) => {
 
   useEffect(() => {
     setDataUpdate({ ...filterUser });
-  }, idUser);
+  }, [idUser]);
   const handleChange = (e) => {
     setDataUpdate({ ...dataUpdate, [e.target.name]: e.target.value });
   };
-  const handleEdit = (e) => {
+  const handleEdit = () => {
     dispatch(editUser(dataUpdate, idUser));
     handleClose();
   };
@@ -60,7 +59,7 @@ const ModalEdit = ({ open, handleClose, idUser }) => {
             id="outlined-required"
             label="Email"
             margin="normal"
-            value={dataUpdate?.email}
+            value={dataUpdate?.email ?? ""}
             name="email"
           />
           <TextField
@@ -70,7 +69,7 @@ const ModalEdit = ({ open, handleClose, idUser }) => {
             label="Số điện thoại"
             margin="normal"
             name="phone"
-            value={dataUpdate?.phone}
+            value={dataUpdate?.phone ?? ""}
             onChange={(e) => handleChange(e)}
           />
           <TextField
@@ -80,7 +79,7 @@ const ModalEdit = ({ open, handleClose, idUser }) => {
             label="Họ và tên"
             margin="normal"
             name="name"
-            value={dataUpdate?.name}
+            value={dataUpdate?.name ?? ""}
             onChange={(e) => handleChange(e)}
           />
           <FormControl sx={{ minWidth: 120 }}>
@@ -90,7 +89,7 @@ const ModalEdit = ({ open, handleClose, idUser }) => {
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={dataUpdate?.role}
+              value={dataUpdate?.role ?? ""}
               fullWidth
               margin="normal"
               name="role"

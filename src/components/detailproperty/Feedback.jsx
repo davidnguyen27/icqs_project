@@ -36,11 +36,11 @@ const Feedback = ({ idProperty }) => {
   useEffect(() => {
     dispatch(getFeedbackType("", ""));
   }, [handleComment]);
-  const feedbacks = useSelector((state) => state.feedbackReducer.feedbackData);
+  const feedbacks = useSelector((state) => state.feedbackReducer?.feedbackData);
   const filterFeedback = feedbacks?.data?.feedback?.filter(
     (item) => item.property_id === idProperty.id
   );
-  console.log(feedbacks);
+
   return (
     <div className="feedback-container">
       <Typography variant="h5" gutterBottom>

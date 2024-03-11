@@ -9,6 +9,7 @@ const paymentReducer = (
     case "PAYMENT_SUCCESS":
       localStorage.setItem("payment", JSON.stringify({ ...payload?.data }));
       return { ...state, paymentData: payload.data, loading: false };
+
     case "PAYMENT_FAIL":
       return { ...state, loading: false, error: true };
     default:

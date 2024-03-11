@@ -1,0 +1,23 @@
+.message-error{
+    font-size: 12px;
+    color: red;
+}
+
+.registerStyle {
+    border-radius: 5px !important;
+    padding: 5px 15px !important;
+    margin: 10px 0 !important;
+    color: #000 !important;
+    background-color: #ffc814 !important;
+    margin-right: 20px !important;
+  }
+  
+  .box-register {
+    border: 1px solid #000 !important;
+    border-radius: 5px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+  
+  }

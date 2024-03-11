@@ -31,9 +31,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const TableUser = ({ listUser }) => {
+const TableUser = ({ listUser, page }) => {
   const [open, setOpen] = React.useState(false);
-  const [idUser, setIdUser] = React.useState();
+  const [idUser, setIdUser] = React.useState(undefined);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleEdit = (id) => {
@@ -54,7 +54,7 @@ const TableUser = ({ listUser }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {listUser?.data?.user?.rows.map((el) => (
+          {listUser?.map((el) => (
             <StyledTableRow key={el.id}>
               <StyledTableCell component="th" scope="row">
                 {el.name}
@@ -76,7 +76,12 @@ const TableUser = ({ listUser }) => {
           ))}
         </TableBody>
       </Table>
-      <ModalEdit open={open} handleClose={handleClose} idUser={idUser} />
+      <ModalEdit
+        open={open}
+        handleClose={handleClose}
+        idUser={idUser}
+        page={page}
+      />
     </TableContainer>
   );
 };

@@ -70,7 +70,7 @@ const About = () => {
                 Thiết kế nội thất không chỉ là sáng tạo trên bàn giấy, đằng sau
                 đó là sự tính toán hợp lý cho nhu cầu người sử dụng. Bằng việc
                 cung cấp giải pháp nội thất toàn diện từ thiết kế đến thi công,
-                Là Nhà có đủ năng lực để{" "}
+                My House có đủ năng lực để{" "}
                 <span className="text-highlight">
                   biến đổi không gian sống đáp ứng được sự cân bằng giữa thẩm mỹ
                   và công năng.

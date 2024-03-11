@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header/Header";
+import Header from "../../components/Header/Header";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import "./DetailProperty.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchProperties } from "../redux/actions/propertyAction";
-import Footer from "../components/Footer/Footer";
-import IntroDetailProperty from "../components/detailproperty/IntroDetailProperty";
+import { getSearchProperties } from "../../redux/actions/propertyAction";
+import Footer from "../../components/Footer/Footer";
+import IntroDetailProperty from "../../components/detailproperty/IntroDetailProperty";
 
 const DetailProperty = () => {
   const idProperty = useParams();
@@ -26,9 +26,7 @@ const DetailProperty = () => {
     <>
       <Header />
       <Container>
-        <Typography variant="h4">
-          Mẫu thiết kế nội thất {property.style} đẹp, ấn tượng nhất 2023
-        </Typography>
+        <Typography variant="h4">{property.name}</Typography>
         <IntroDetailProperty property={property} idProperty={idProperty} />
       </Container>
       <Footer />

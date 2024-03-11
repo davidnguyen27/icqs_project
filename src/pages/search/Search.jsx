@@ -1,13 +1,13 @@
-import Header from "../components/Header/Header";
+import Header from "../../components/Header/Header";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getSearchProperties } from "../redux/actions/propertyAction";
+import { getSearchProperties } from "../../redux/actions/propertyAction";
 import { Container, Pagination, Stack } from "@mui/material";
-import Property from "../components/Search/Property";
-import NotFoundSearch from "../components/Search/NotFoundSearch";
+import Property from "../../components/Search/Property";
+import NotFoundSearch from "../../components/Search/NotFoundSearch";
 import "./Search.css";
-import Footer from "../components/Footer/Footer";
+import Footer from "../../components/Footer/Footer";
 const Search = () => {
   const search = useParams();
   const [page, setPage] = useState(1);

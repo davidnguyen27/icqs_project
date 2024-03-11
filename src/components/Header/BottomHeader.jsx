@@ -7,11 +7,11 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useNavigate } from "react-router-dom";
 
 const navFilter = [
-  { label: "quote calculation", url: "/quote-calculation" },
-  { label: "INTERIOR DESIGN", url: "interior-design" },
-  { label: "INTERIOR CONSTRUCTION", url: "interior-construction" },
-  { label: "COMPLETE PROJECT", url: "complete-project" },
-  { label: "DEPARTMENT", url: "department" },
+  { label: "Tính giá dự kiến", url: "/quote-calculation" },
+  { label: "Thiết kế nội thất", url: "interior-design" },
+  { label: "Báo giá nội thất", url: "/quotation" },
+  { label: "Dự án đã hoàn thành", url: "/complete-project" },
+  { label: "Chung cư", url: "department" },
   { label: "SHOWROOM", url: "showroom" },
 ];
 
@@ -31,7 +31,16 @@ const BottomHeader = () => {
               className="header-bottom__button"
               color="inherit"
               onClick={() => {
-                item.label === "quote calculation" && navigate(`${item.url}`);
+                {
+                  item.label === "Tính giá dự kiến" && navigate(`${item.url}`);
+                }
+                {
+                  item.label === "Báo giá nội thất" && navigate(`${item.url}`);
+                }
+                {
+                  item.label === "Dự án đã hoàn thành" &&
+                    navigate(`${item.url}`);
+                }
               }}
             >
               {item.label}

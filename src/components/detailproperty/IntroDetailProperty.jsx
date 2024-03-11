@@ -14,24 +14,40 @@ const IntroDetailProperty = ({ property, idProperty }) => {
     color: theme.palette.text.secondary,
   }));
   const navigate = useNavigate();
+
   return (
     <div className="marginT-30 marginB-150">
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          <img src={property.images} className="image-detailproperty" />
+          <img src={property.images[0]} className="image-detailproperty" />
           <div className="inline">
-            <span className="blue-detailproperty bold fs-20">
-              Thiết kế nội thất{" "}
-              <span className="black-detailproperty fs-16">
+            <Typography variant="h6" className="black-detailproperty">
+              Thiết kế nội thất &nbsp;{" "}
+              <Typography variant="subtitle1" className="black-detailproperty">
                 {property.description}
-              </span>
-            </span>
+              </Typography>
+            </Typography>
           </div>
           <div className="">
             <span className="inline marginT-30">
               <KeyboardDoubleArrowRightIcon /> Xem thêm: &nbsp;{" "}
               <Link>Mẫu thiết kế nội thất chung cư</Link>
             </span>
+          </div>
+          <div>
+            <Typography variant="h6" gutterBottom>
+              Vật liệu công trình
+              <img
+                src={property.material[0]}
+                className="image-detailproperty"
+              />
+            </Typography>
+          </div>
+          <div>
+            <Typography variant="h6" gutterBottom>
+              Báo giá combo
+              <img src={property.combo[0]} className="image-detailproperty" />
+            </Typography>
           </div>
           <Feedback idProperty={idProperty} />
         </Grid>
@@ -41,22 +57,12 @@ const IntroDetailProperty = ({ property, idProperty }) => {
               Dự án liên quan
             </Typography>
             <div className="related-box">
-              <img
-                src="https://noithatibizvietnam.vn/wp-content/uploads/2021/07/TANG-1-KHACH-BEP-11.png"
-                className="image-related"
-              />
-              <Typography variant="h6">
-                Mẫu thiết kế nội thất shophouse đẹp
-              </Typography>
+              <img src={property.images[1]} className="image-related" />
+              <Typography variant="h6">Bản mẫu thiết kế nội thất</Typography>
             </div>
             <div className="related-box">
-              <img
-                src="https://noithatibizvietnam.vn/wp-content/uploads/2021/07/TANG-1-KHACH-BEP-11.png"
-                className="image-related"
-              />
-              <Typography variant="h6">
-                Mẫu thiết kế nội thất shophouse đẹp
-              </Typography>
+              <img src={property.images[2]} className="image-related" />
+              <Typography variant="h6">Bản mẫu thiết kế nội thất</Typography>
             </div>
             <Button
               variant="contained"

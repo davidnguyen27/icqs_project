@@ -4,7 +4,23 @@ export const getPaymentByAccount = () => async (dispatch) => {
   dispatch({ type: "PAYMENT_START" });
   try {
     const data = await PaymentApi.getPayment();
-    dispatch({ type: "PAYMENT_SUCCESS", payload: { data } });
+    dispatch({
+      type: "PAYMENT_SUCCESS",
+      payload: { data },
+    });
+  } catch (error) {
+    dispatch({ type: "PAYMENT_FAIL" });
+  }
+};
+
+export const getAllPayment = (limit, page, title) => async (dispatch) => {
+  dispatch({ type: "PAYMENT_START" });
+  try {
+    const data = await PaymentApi.getAllPayment(limit, page, title);
+    dispatch({
+      type: "PAYMENT_SUCCESS",
+      payload: { data },
+    });
   } catch (error) {
     dispatch({ type: "PAYMENT_FAIL" });
   }

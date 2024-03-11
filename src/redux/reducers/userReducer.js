@@ -10,10 +10,10 @@ const userReducer = (
       localStorage.setItem("get-user", JSON.stringify({ ...payload?.data }));
       return { ...state, userData: payload.data, loading: false };
     case "EDIT_USER_SUCCESS":
-      const { formEdit, id } = payload;
-      const updateUser = state.userData.map((user) => {
+      const { data, id } = payload;
+      const updateUser = state.userData.data.user.rows.map((user) => {
         if (user.id === id) {
-          return { ...user, ...formEdit };
+          return { ...user, ...data };
         }
         return user;
       });

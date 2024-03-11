@@ -9,23 +9,32 @@ import "./UserManage.css";
 const UserManage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
   const [page, setPage] = useState(1);
   useEffect(() => {
-    dispatch(getUser(5, page + 1));
-  }, [page]);
+    dispatch(getUser(5, page + 1, email));
+  }, [page, email]);
   const handlePagination = (e) => {
     e.preventDefault();
     const getPage = parseInt(e.target.innerText);
     setPage(getPage);
   };
-  const listUser = useSelector((state) => state.userReducer.userData);
+  const [users, setUsers] = useState([]);
+  const listUserData = useSelector((state) => state.userReducer.userData);
+  useEffect(() => {
+    setUsers(listUserData.data?.user?.rows);
+  }, [listUserData]);
 
   return (
     <>
       <div className="user-title">Quản lý người dùng</div>
       <div>
         <div className="user-layer1">
-          <input placeholder="Tìm kiếm..." className="user-input-search" />
+          <input
+            placeholder="Tìm kiếm..."
+            className="user-input-search"
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Button
             className="user-button"
             onClick={() => navigate("/create-staff")}
@@ -35,7 +44,7 @@ const UserManage = () => {
         </div>
         <Divider />
         <div className="user-table">
-          <TableUser listUser={listUser} />
+          <TableUser listUser={users} page={page} email={email} />
         </div>
         <div className="user-pagination">
           <Pagination

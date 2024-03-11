@@ -1,10 +1,12 @@
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import FeedIcon from "@mui/icons-material/Feed";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import ContactsIcon from "@mui/icons-material/Contacts";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import LoginIcon from "@mui/icons-material/Login";
 import HomeIcon from "@mui/icons-material/Home";
+import CottageIcon from "@mui/icons-material/Cottage";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
@@ -23,7 +25,7 @@ import {
 } from "@mui/material";
 import { Responsive } from "../../Utils/Responsive";
 import { useState, useEffect } from "react";
-import LoginModal from "../../Auth/LoginModal";
+import LoginModal from "../../components/Auth/LoginModal";
 import { useDispatch, useSelector } from "react-redux";
 import BottomHeader from "./BottomHeader";
 import { useTheme } from "@emotion/react";
@@ -32,27 +34,27 @@ import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import { userLogout } from "../../redux/actions/authAction";
 const navItems = [
+  { icon: <HomeIcon className="nav-icons" />, name: "About us" },
   { icon: <FeedIcon className="nav-icons" />, name: "Blogs" },
-  { icon: <AccountBoxIcon className="nav-icons" />, name: "About" },
-  { icon: <ContactsIcon className="nav-icons" />, name: "Contact" },
+  { icon: <LocalPhoneIcon className="nav-icons" />, name: "Contact" },
   { icon: <LoginIcon className="nav-icons" />, name: "Login" },
 ];
 
 const navItemsAuth = [
+  { icon: <HomeIcon className="nav-icons" />, name: "About us" },
   { icon: <FeedIcon className="nav-icons" />, name: "Blogs" },
-  { icon: <AccountBoxIcon className="nav-icons" />, name: "About" },
-  { icon: <ContactsIcon className="nav-icons" />, name: "Contact" },
+  { icon: <LocalPhoneIcon className="nav-icons" />, name: "Contact" },
   { icon: <PersonIcon className="nav-icons" />, name: "Auth" },
 ];
 const navItemsAuthAdmin = [
+  { icon: <HomeIcon className="nav-icons" />, name: "About us" },
   { icon: <FeedIcon className="nav-icons" />, name: "Blogs" },
-  { icon: <AccountBoxIcon className="nav-icons" />, name: "About" },
-  { icon: <ContactsIcon className="nav-icons" />, name: "Contact" },
+  { icon: <LocalPhoneIcon className="nav-icons" />, name: "Contact" },
   { icon: <ContactsIcon className="nav-icons" />, name: "Dashboard" },
   { icon: <PersonIcon className="nav-icons" />, name: "Auth" },
 ];
 
-const settings = ["Contract", "History payment", "Logout"];
+const settings = ["Profile", "Contract", "History payment", "Logout"];
 
 const Header = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -80,7 +82,6 @@ const Header = () => {
   const isResponsive = useMediaQuery(theme.breakpoints.down("md"));
   const user = useSelector((state) => state.authReducer.authData);
   const check = user?.data?.user?.role === "ADMIN" ? true : false;
-
   const dispatch = useDispatch();
 
   const handleSearch = (e) => {
@@ -125,7 +126,7 @@ const Header = () => {
           <Container maxWidth="lg">
             <Toolbar className="sub-nav">
               <Box className="brand-box" onClick={() => navigate("/")}>
-                <HomeIcon className="brand-icon" />
+                <CottageIcon className="brand-icon" />
                 <Typography
                   variant="h4"
                   component="div"
@@ -139,7 +140,7 @@ const Header = () => {
                 <div style={{ display: "flex" }}>
                   <input
                     type="text"
-                    placeholder="Enter keyword..."
+                    placeholder="Nhập từ khóa..."
                     className="search-input"
                     required
                     onKeyDown={(e) => handleKeyDown(e)}
@@ -161,7 +162,7 @@ const Header = () => {
                         onClick={() => {
                           setOpenLoginModal(item.name === "Login");
                           {
-                            item.name === "About" && navigate("/about");
+                            item.name === "About us" && navigate("/about");
                           }
                           {
                             item.name === "Blogs" && navigate("/blogs");
@@ -183,7 +184,7 @@ const Header = () => {
                         color="inherit"
                         onClick={(e) => {
                           {
-                            item.name === "About" && navigate("/about");
+                            item.name === "About us" && navigate("/about");
                           }
                           {
                             item.name === "Blogs" && navigate("/blogs");
@@ -205,7 +206,7 @@ const Header = () => {
                               >
                                 <Avatar
                                   alt="Remy Sharp"
-                                  src="/static/images/avatar/2.jpg"
+                                  src={user.data?.user?.avatar}
                                 />
                               </IconButton>
                             </Tooltip>
@@ -231,6 +232,10 @@ const Header = () => {
                                   onClick={(e) => {
                                     {
                                       handleCloseUserMenu(e);
+                                    }
+                                    {
+                                      setting === "Profile" &&
+                                        navigate("/user/profile");
                                     }
                                     {
                                       setting === "Contract" &&
@@ -267,7 +272,7 @@ const Header = () => {
                         color="inherit"
                         onClick={(e) => {
                           {
-                            item.name === "About" && navigate("/about");
+                            item.name === "About us" && navigate("/about");
                           }
                           {
                             item.name === "Blogs" && navigate("/blogs");
@@ -286,7 +291,7 @@ const Header = () => {
                               >
                                 <Avatar
                                   alt="Remy Sharp"
-                                  src="/static/images/avatar/2.jpg"
+                                  src={user.data?.user?.avatar}
                                 />
                               </IconButton>
                             </Tooltip>
@@ -312,6 +317,10 @@ const Header = () => {
                                   onClick={(e) => {
                                     {
                                       handleCloseUserMenu(e);
+                                    }
+                                    {
+                                      setting === "Profile" &&
+                                        navigate("/user/profile");
                                     }
                                     {
                                       setting === "Contract" &&

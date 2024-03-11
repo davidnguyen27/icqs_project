@@ -10,3 +10,15 @@ export const getPayment = () => {
     },
   });
 };
+
+export const getAllPayment = (limit, page, title) => {
+  const token = getToken();
+  return API.get(
+    `/api/v1/payment/allpayment?limit=${limit}&page=${page}&title=${title}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};

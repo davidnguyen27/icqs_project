@@ -1,0 +1,27 @@
+.payment-title{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.div-button{
+    position: relative;
+    width: 100%;
+   
+}
+
+.payment-input-search{
+    width: 500px;
+    padding: 10px;
+    font-size: 14px;
+    height: 30px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.payment-button{
+   position: absolute !important; 
+    right: 0 !important;
+    border: 1px solid rgb(2, 118, 226) !important;
+}

@@ -9,14 +9,19 @@ import Paper from "@mui/material/Paper";
 import { Button, Container, Typography } from "@mui/material";
 import ModalImage from "./ModalImage";
 import { useDispatch, useSelector } from "react-redux";
-import { getPaymentByAccount } from "../../redux/actions/paymentAction";
+import {
+  getAllPayment,
+  getPaymentByAccount,
+} from "../../redux/actions/paymentAction";
 import { formatDate } from "../../Utils/FormatDate";
+import { getToken } from "../../Utils/Token";
 
 const TablePayment = () => {
   const dispatch = useDispatch();
+  const token = getToken();
   useEffect(() => {
     dispatch(getPaymentByAccount());
-  }, []);
+  }, [dispatch, token]);
 
   const payments = useSelector((state) => state.paymentReducer.paymentData);
 
@@ -28,7 +33,7 @@ const TablePayment = () => {
       <Typography variant="h4" style={{ margin: "30px 0" }}>
         Lịch sử thanh toán
       </Typography>
-      {payments?.data?.userPay.length !== 0 ? (
+      {payments?.data?.userPay?.length !== 0 ? (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>

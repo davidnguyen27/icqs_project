@@ -19,13 +19,22 @@ import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import BookIcon from "@mui/icons-material/Book";
+import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import PaidIcon from "@mui/icons-material/Paid";
 import BrushIcon from "@mui/icons-material/Brush";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import UserManage from "../../components/dashboard/usermanage/UserManage";
 import BlogManage from "../../components/dashboard/blogmanage/BlogManage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CreateUser from "../../components/dashboard/usermanage/CreateUser";
+import RequestQuote from "../../components/dashboard/requestquote/RequestQuote";
+import HelloAdmin from "./HelloAdmin";
+import { AccountCircle } from "@mui/icons-material";
+import { Menu, MenuItem } from "@mui/material";
+import { userLogout } from "../../redux/actions/authAction";
+import PaymentManage from "../../components/dashboard/paymentmanage/PaymentManage";
+import CreatePayment from "../../components/dashboard/paymentmanage/CreatePayment";
+import PropertyManage from "../../components/dashboard/propertymanage/PropertyManage";
 const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -75,6 +84,20 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const listItem = [
     {
       id: 1,
@@ -96,12 +119,18 @@ const Dashboard = () => {
     },
     {
       id: 4,
+      title: "Yêu cầu báo giá",
+      icon: <RequestQuoteIcon />,
+      path: "/requestquote",
+    },
+    {
+      id: 5,
       title: "Lịch sử giao dịch",
       icon: <PaidIcon />,
       path: "/paymentmanage",
     },
     {
-      id: 5,
+      id: 6,
       title: "Thiết kế giao diện",
       icon: <BrushIcon />,
       path: "/design",
@@ -113,6 +142,10 @@ const Dashboard = () => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const handleClick = () => {
+    dispatch(userLogout());
+    navigate("/");
   };
 
   return (
@@ -129,8 +162,47 @@ const Dashboard = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Admin My House
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <span>Admin My House</span>
+            {auth && (
+              <div style={{ position: "absolute", right: "20px" }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClick}>Đăng xuất</MenuItem>
+                </Menu>
+              </div>
+            )}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -175,10 +247,14 @@ const Dashboard = () => {
       <Main open={open}>
         <DrawerHeader />
         <Routes>
+          <Route path="/dashboard" element={<HelloAdmin />} />
           <Route path="/usermanage" element={<UserManage />} />
           <Route path="/create-staff" element={<CreateUser />} />
-          {/* <Route path="/propertymanage" element={<PropertyManage />} />  */}
+          <Route path="/propertymanage" element={<PropertyManage />} />
+          <Route path="/requestquote" element={<RequestQuote />} />
           <Route path="/blogmanage" element={<BlogManage />} />
+          <Route path="/paymentmanage" element={<PaymentManage />} />
+          <Route path="/create-payment" element={<CreatePayment />} />
         </Routes>
       </Main>
     </Box>

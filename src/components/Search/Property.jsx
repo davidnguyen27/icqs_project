@@ -32,7 +32,11 @@ const Property = ({ properties }) => {
             <Grid item xs={2} sm={4} md={4} key={item.id}>
               <Card sx={{ maxWidth: 345 }} onClick={() => handleClick(item.id)}>
                 <CardActionArea>
-                  <CardMedia component="img" height="140" image={item.images} />
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={item.images[0]}
+                  />
                   <CardContent>
                     <Typography
                       gutterBottom

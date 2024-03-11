@@ -12,12 +12,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getContractByUser } from "../../redux/actions/contractAction";
 import { formatDate } from "../../Utils/FormatDate";
 import { compareAsc } from "date-fns";
+import { getToken } from "../../Utils/Token";
+import { Link } from "react-router-dom";
+import PublishIcon from "@mui/icons-material/Publish";
 
 const Contract = () => {
   const dispatch = useDispatch();
+  const token = getToken();
   React.useEffect(() => {
     dispatch(getContractByUser());
-  }, []);
+  }, [dispatch, token]);
   const userContract = useSelector(
     (state) => state.contractReducer.contractData
   );
@@ -39,10 +43,11 @@ const Contract = () => {
                 <TableCell align="center">Nội dung</TableCell>
                 <TableCell align="center">Trạng thái</TableCell>
                 <TableCell align="center">Hợp đồng</TableCell>
+                <TableCell align="center">Nộp bản hợp đồng</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((el) => (
+              {data?.map((el) => (
                 <TableRow
                   key={el.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -58,8 +63,26 @@ const Contract = () => {
                     )}
                   </TableCell>
                   <TableCell align="center">{el.title}</TableCell>
-                  <TableCell align="center">{el.status}</TableCell>
-                  <TableCell align="center">{el.contract}</TableCell>
+                  <TableCell
+                    align="center"
+                    style={{
+                      color:
+                        el.status === "PENDING"
+                          ? "orange"
+                          : el.status === "FINISHED"
+                          ? "green"
+                          : "red",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {el.status}
+                  </TableCell>
+                  <TableCell align="center">
+                    {el.contract && <Link to={el.contract}>Hợp đồng</Link>}
+                  </TableCell>
+                  <TableCell align="center">
+                    <PublishIcon />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
