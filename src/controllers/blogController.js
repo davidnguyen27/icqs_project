@@ -3,7 +3,7 @@ const db = require('../models');
 const { Op } = require('sequelize');
 
 const createBlog = async (req, res) => {
-    const { title, image, content } = req.body;
+    const { title, content } = req.body;
     const { userId, role } = req.user;
     // Tạo một bài blog mới trong database
     try {
@@ -79,8 +79,6 @@ const hiddenBlog = async (req, res) => {
         if (!blog) {
             return res.status(404).json({ error: 'Blog not found' });
         }
-        // blog.status = "0";
-
         await blog.update({ status: 0, user_id:userId });
         await blog.save;
 
@@ -104,8 +102,6 @@ const restoreBlog = async (req, res) => {
         if (!blog) {
             return res.status(404).json({ error: 'Blog not found' });
         }
-        // blog.status = "0";
-
         await blog.update({ status: 1, user_id:userId });
         await blog.save;
 
@@ -118,7 +114,7 @@ const restoreBlog = async (req, res) => {
 }
 
 const updateBlogByStaff = async (req, res) => {
-    const { title, image, content } = req.body;
+    const { title, content } = req.body;
     const { userId, role } = req.user;
     const fileData = req.file;
         if (content == '' || title == '') {
@@ -149,7 +145,7 @@ const updateBlogByStaff = async (req, res) => {
 }
 
 const updateBlogByAdmin = async (req, res) => {
-    const { title, image, content } = req.body;
+    const { title, content } = req.body;
     const { userId } = req.user;
     const fileData = req.file;
         if (content == '' || title == '') {

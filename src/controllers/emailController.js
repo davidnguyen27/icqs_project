@@ -3,7 +3,6 @@ const validation = require('../middleware/validation')
 const sendEmail = async (req, res) => {
     try {
         const { userMail } = req.body
-        console.log("check mail: ", userMail);
         // check email có hộp lệ hay không
         if (validation.isEmailValid(userMail) == true) {
             

@@ -8,7 +8,8 @@ const { authenToken} = require('../middleware/JWT');;
     router.post('/login', authController.login, )   
     //Admin create new staff account
     router.get('/logout', authController.logout);
- 
+ //Login with gg
+    router.post('/loginGoogle', authController.loginGooglePage)
     module.exports = router
 
 

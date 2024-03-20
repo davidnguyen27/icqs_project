@@ -56,7 +56,11 @@ const logout = async (req, res) => {
     res.status(201).json(addTokenToBackList);
 }
 
+//login function
+const loginGooglePage = async (req, res) => {
+    res.render('/');
+}
 
 module.exports = {
-    login, logout
+    login, logout, loginGooglePage
 }

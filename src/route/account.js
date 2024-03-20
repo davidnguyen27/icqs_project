@@ -11,6 +11,7 @@ const { authenToken, isAdmin, authenToken2, isStaff, isUser} = require('../middl
     router.get('/restoreAccount/:id',authenToken, isAdmin, accountController.restoreAccount)
     //Register by user
     router.post('/register', accountController.register)
+    
     // Update by staff
     router.put('/updateProfileByStaff',authenToken2, isStaff, accountController.updateProfile)
     // Update by user

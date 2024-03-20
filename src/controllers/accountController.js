@@ -13,15 +13,15 @@ const createStaff = async (req, res) => {
         const { username, password, email, phone } = req.body;
 
         if (validation.isValidPassword(password) == false) {
-            return res.status(401).json({ error: 'Password must have a minimum length of 8 characters including upper and lower case letters and numbers!' });
+            return res.status(401).json({ error: 'Mật khẩu phải có độ dài tối thiểu 8 ký tự bao gồm chữ hoa, chữ thường và số!' });
         }
         // check phone có hợp lệ hay không
         if (validation.isPhoneNumber(phone) == false) {
-            return res.status(401).json({ error: 'Phone numbers cannot contain letters, special characters or spaces' });
+            return res.status(401).json({ error: 'Số điện thoại không được chứa chữ cái, ký tự đặc biệt hoặc dấu cách' });
         }
         // check email có hộp lệ hay không
         if (validation.isEmailValid(email) == false) {
-            return res.status(401).json({ error: 'Email is not valid!' });
+            return res.status(401).json({ error: 'Email không hợp lệ!' });
         }
         // check đã tồn tại
         const userMail = await db.Account.findOne({
@@ -32,7 +32,7 @@ const createStaff = async (req, res) => {
         })
         //check email or phone of user has been used or not
         if (userMail || userPhone) {
-            return res.status(401).json({ error: 'email or phone has been used' });
+            return res.status(401).json({ error: 'email hoặc điện thoại đã được sử dụng' });
         }
 
         const hashedPass = hash.MD5(password)
@@ -40,7 +40,7 @@ const createStaff = async (req, res) => {
         res.status(201).json(newAccount);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Lỗi máy chủ nội bộ' });
     }
 }
 
@@ -50,12 +50,12 @@ const getStaffInfoByAdmin = async (req, res) => {
             where: { role: "STAFF" },
         });
         if (account == '') {
-            return res.status(401).json({ error: 'Dont have any account, please create new account!' });
+            return res.status(401).json({ error: 'Chưa có tài khoản, vui lòng tạo tài khoản mới!' });
         }
         return res.status(200).json(account);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Lỗi máy chủ nội bộ' });
     }
 }
 
@@ -65,12 +65,12 @@ const getUserInfoByAdmin = async (req, res) => {
             where: { role: "USER" },
         });
     if (account == '') {
-        return res.status(401).json({ error: 'Dont have any account, please create new account!' });
+        return res.status(401).json({ error: 'Chưa có tài khoản, vui lòng tạo tài khoản mới!' });
     }
     return res.status(200).json(account);
 } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: 'Lỗi máy chủ nội bộ' });
 }
 }
 
@@ -84,7 +84,7 @@ const getInFor = async (req, res) => {
         return res.status(200).json(account);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Lỗi máy chủ nội bộ' });
     }
 }
 
@@ -94,7 +94,7 @@ const register = async (req, res) => {
         const { username, password, email, phone } = req.body;
         // Check password có hợp lệ hay không
         if (validation.isValidPassword(password) == false) {
-            return res.status(401).json({ error: 'Password must have a minimum length of 8 characters including upper and lower case letters and numbers!' });
+            return res.status(401).json({ error: 'Mật khẩu phải có độ dài tối thiểu 8 ký tự bao gồm chữ hoa, chữ thường và số!' });
         }
 
         // check đã tồn tại
@@ -106,7 +106,7 @@ const register = async (req, res) => {
         })
         //check email or phone of user has been used or not
         if (userMail || userPhone) {
-            return res.status(401).json({ error: 'email or phone has been used' });
+            return res.status(401).json({ error: 'email hoặc điện thoại đã được sử dụng' });
         }
         const hashedPass = hash.MD5(password)
         const newAccount = await db.Account.create({ username, password: hashedPass, email, phone });
@@ -114,11 +114,11 @@ const register = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Lỗi máy chủ nội bộ' });
     }
 }
 // update profile by staff / user
-let updateProfile = async (req, res) => {
+const updateProfile = async (req, res) => {
     try {
         const { username, phone } = req.body;
         const {userId} = req.user; // Assuming the blog id is passed in the request parameters
@@ -128,12 +128,12 @@ let updateProfile = async (req, res) => {
         });
 
         if (!account) {
-            return res.status(404).json({ error: 'Account not found' });
+            return res.status(404).json({ error: 'Tài khoản không được tìm thấy' });
         }
 
         // check phone có hợp lệ hay không
         if (validation.isPhoneNumber(phone) == false) {
-            return res.status(401).json({ error: 'Phone numbers cannot contain letters, special characters or spaces' });
+            return res.status(401).json({ error: 'Số điện thoại không được chứa chữ cái, ký tự đặc biệt hoặc dấu cách' });
         }
 
         await account.update({ username, phone });
@@ -144,20 +144,18 @@ let updateProfile = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Lỗi máy chủ nội bộ' });
     }
 }
 
 const hiddenAccount = async (req, res) => {
     try {
         const accountID = req.params.id;
-        console.log("check id:", accountID)
         const account = await db.Account.findOne({
             where: { id: accountID, status: 1 },
         });
-        console.log("check account:", account)
         if (!account) {
-            return res.status(404).json({ error: 'Account not found' });
+            return res.status(404).json({ error: 'Tài khoản không được tìm thấy' });
         }
 
         await account.update({ status: 0 });
@@ -167,20 +165,18 @@ const hiddenAccount = async (req, res) => {
         res.status(200).json({ account });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Lỗi máy chủ nội bộ' });
     }
 }
 
 const restoreAccount = async (req, res) => {
     try {
         const accountID = req.params.id;
-        console.log("check id:", accountID)
         const account = await db.Account.findOne({
             where: { id: accountID, status: 0 },
         });
-        console.log("check account:", account)
         if (!account) {
-            return res.status(404).json({ error: 'Account not found' });
+            return res.status(404).json({ error: 'Tài khoản không được tìm thấy' });
         }
 
         await account.update({ status: 1 });
@@ -190,7 +186,7 @@ const restoreAccount = async (req, res) => {
         res.status(200).json({ account });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Tài khoản không được tìm thấy' });
     }
 }
 
@@ -204,7 +200,7 @@ const changePassword = async (req, res) => {
             where: { email: userMail, password: hashedPass }
         });
         if (!account) {
-            return res.status(401).json({ error: 'Wrong password!' });
+            return res.status(401).json({ error: 'Sai mật khẩu!' });
         }
         if (validation.isValidPassword(newPass) == false || validation.isValidPassword(newPass2) == false) {
             return res.status(401).json({ error: 'Password must have a minimum length of 8 characters including upper and lower case letters and numbers!' });
@@ -223,47 +219,6 @@ const changePassword = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 }
-
-//changePassword function
-// const resetPassword = async (req, res) => {
-//     const { verifyCode, oldPassword, newPass, newPass2 } = req.body;
-//     const { userMail } = req.user;
-//     try {
-//         const hashedPass = hash.MD5(oldPassword);
-//         const account = await db.Account.findOne({
-//             where: { email: userMail, password: hashedPass }
-//         });
-//         if (!account) {
-//             return res.status(401).json({ error: 'Mật khẩu cũ sai' });
-//         }
-//         if (validation.isValidPassword(newPass) == false || validation.isValidPassword(newPass2) == false) {
-//             return res.status(401).json({ error: 'Mật khẩu phải có độ dài tối thiểu 8 ký tự bao gồm chữ hoa, chữ thường và số!' });
-//         }
-//         if (newPass != newPass2) {
-//             return res.status(401).json({ error: 'Mật khẩu mới và nhập lại mật khẩu phải giống nhau!' });
-//         }
-//         const isVerifyCodeValid = await db.Account.findOne({
-//             where: {
-//                 verifyCode: verifyCode,
-//                 createdAt: {
-//                     [Sequelize.Op.gt]: Sequelize.literal(`NOW() - INTERVAL 2 MINUTE`)
-//                 }
-//             }
-//         });
-//         if (!isVerifyCodeValid) {
-//             return res.status(401).json({ error: 'Mã xác thực không hợp lệ hoặc đã hết hạn' });
-//         }
-//         const hashedPass2 = hash.MD5(newPass);
-//         await account.update({ password: hashedPass2 });
-//         await account.save;
-//         res.status(200).json({
-//             message: 'Thay đổi mật khẩu thành công',
-//         });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Lỗi máy chủ' });
-//     }
-// }
 
 module.exports = {
     createStaff, register, getStaffInfoByAdmin, getUserInfoByAdmin, updateProfile, hiddenAccount, restoreAccount, getInFor, changePassword

@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 const validation = require('../middleware/validation')
 const db = require('../models');
-var md5 = require('md5');
 const hash = require('object-hash');
 const sendEmailService = async (userMail) => {
     const transporter = nodemailer.createTransport({

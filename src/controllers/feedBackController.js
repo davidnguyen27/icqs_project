@@ -1,11 +1,10 @@
 const validation = require('../middleware/validation')
 const db = require('../models');
 const { Op, INTEGER } = require('sequelize');
-let createFeedBack = async (req, res) => {
+const createFeedBack = async (req, res) => {
     const { comment, rating } = req.body;
     const { userId } = req.user;
     const project_id = req.params.id;
-    console.log("check:", project_id)
     try {
         if (rating == '') {
             return res.status(401).json({ error: 'You have not rated it yet' });
@@ -40,8 +39,6 @@ const getAllFeedBack = async (req, res) => {
             totalRating += parseInt(feedback.rating);
             countFeedBack++;
         }
-        console.log("check count:", totalRating);
-
         const averageRating = totalRating / countFeedBack;
 
         return res.status(200).json({ averageRating, feedbacks });
