@@ -1,0 +1,84 @@
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "theanh@gmail.com",
+    "password": "123"
+}
+
+###
+POST http://localhost:5000/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "name":"The anh", 
+    "phone": "0812345678",
+    "role": "USER",
+    "email": "theanh@gmail.com",
+    "password": "123"
+}
+
+
+
+###
+GET http://localhost:5000/api/v1/property
+
+###
+GET http://localhost:5000/api/v1/property/73d15eb4-b294-11ee-99fa-a0510b5d5f6a
+###
+POST http://localhost:5000/api/v1/property
+Content-Type: application/json
+
+{
+    "name": "Product 2",
+    "price": "192",
+    "style": "hien dai",
+    "description": "des 2",
+    "width": "12",
+    "length": "24",
+    "height": "20"
+}
+
+###
+PUT http://localhost:5000/api/v1/property/46abf96e-b293-11ee-99fa-a0510b5d5f
+Content-Type: application/json
+
+{
+    "name": "Product update",
+    "price": "192",
+    "style": "co kinh",
+    "description": "des 1",
+    "width": "12 update",
+    "length": "24",
+    "height": "20"
+}
+
+###
+DELETE http://localhost:5000/api/v1/feedback/12012e2d-b2ad-11ee-99fa-a0510b5d5f6a
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjNmM5MjE4Mi1iMmEzLTExZWUtOTlmYS1hMDUxMGI1ZDVmNmEiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTcwNTIxMjk2MCwiZXhwIjoxNzA1ODE3NzYwfQ.FCYx8ZY_akeSxQPyUX0fDsW9E4Y3qFRfbElfNEtFD6U
+
+###
+POST http://localhost:5000/api/v1/feedback/6e70b1ee-b294-11ee-99fa-a0510b5d5f6a
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjNmM5MjE4Mi1iMmEzLTExZWUtOTlmYS1hMDUxMGI1ZDVmNmEiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTcwNTIxMjk2MCwiZXhwIjoxNzA1ODE3NzYwfQ.FCYx8ZY_akeSxQPyUX0fDsW9E4Y3qFRfbElfNEtFD6U
+
+{
+    "comment" : "test",
+    "rating": 2
+}
+
+###
+PUT http://localhost:5000/api/v1/feedback/46bd5ed3-b2ae-11ee-99fa-a0510b5d5f6a
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjNmM5MjE4Mi1iMmEzLTExZWUtOTlmYS1hMDUxMGI1ZDVmNmEiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTcwNTIxMjk2MCwiZXhwIjoxNzA1ODE3NzYwfQ.FCYx8ZY_akeSxQPyUX0fDsW9E4Y3qFRfbElfNEtFD6U
+
+{
+    "comment" : "Not good update",
+    "rating": 1
+}
+
+###
+GET http://localhost:5000/api/v1/feedback/6e70b1ee-b294-11ee-99fa-a0510b5d5f6a
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjNmM5MjE4Mi1iMmEzLTExZWUtOTlmYS1hMDUxMGI1ZDVmNmEiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTcwNTIxMjk2MCwiZXhwIjoxNzA1ODE3NzYwfQ.FCYx8ZY_akeSxQPyUX0fDsW9E4Y3qFRfbElfNEtFD6U
